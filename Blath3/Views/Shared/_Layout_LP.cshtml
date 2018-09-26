@@ -1,0 +1,121 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <meta name="keywords" content="promoção, promocao, promoções perto de mim, promocao bairro, melhores promoções, oferta, ofertas perto de mim, desconto, melhores ofertas, melhores descontos, anunciar minha empresa, anuncio, divulgação, divulgar empresa" />
+    <meta name="description" content="O Promoção Agora é um site de promoções, que exibe as promoções mais próximas de onde você está. Nosso objetivo é aproximar todas as pessoas e empresas que fazem algum serviço ou vendem algum produto dos seus clientes em potencial." />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="manifest" href="/manifest.json">
+    <link rel="shortcut icon" href="/icone192x192.png" type="image/ico" />
+    @*<link rel="apple-touch-icon" sizes="57x57" href="/images/apple-icon-57x57.png" />
+        <link rel="apple-touch-icon" sizes="72x72" href="/images/apple-icon-72x72.png" />
+        <link rel="apple-touch-icon" sizes="114x114" href="/images/apple-icon-114x114.png" />
+        <link rel="apple-touch-icon" sizes="144x144" href="/images/apple-icon-144x144.png" />*@
+    <link rel="canonical" href="https://www.blath.com.br" />
+    <meta property="og:locale" content="pt_BR" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Blath! - Encotre o melhor custo benefício para o serviço que você precisa" />
+    <meta property="og:description" content="O Promoção Agora é um site de promoções, que exibe as promoções mais próximas de onde você está. Nosso objetivo é aproximar todas as pessoas e empresas que fazem algum serviço ou vendem algum produto dos seus clientes em potencial." />
+    <meta property="og:url" content="https://www.blath.com.br/site/" />
+    <meta property="og:site_name" content="Promoção Agora" />
+    <meta property="website:publisher" content="https://www.facebook.com/promocaoagorasite/" />
+    <meta property="website:tag" content="promocao perto" />
+    <meta property="website:tag" content="ofertas perto" />
+    <meta property="website:tag" content="promocoes restaurante" />
+    <meta property="website:tag" content="melhores promocoes" />
+    <meta property="website:tag" content="melhores ofertas" />
+
+    <link href="~/Content/jquery-ui.min.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    @Scripts.Render("~/bundles/modernizr")
+    @*@Scripts.Render("~/bundles/jquery")*@
+    @Scripts.Render("~/bundles/bootstrap")
+    @Styles.Render("~/Content/css")
+    
+    <script type="text/javascript" src="~/Scripts/site.js?v=1.1"></script>
+    <link href="https://fonts.googleapis.com/css?family=Lora" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,900" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,900" rel="stylesheet">
+    <script src="https://use.fontawesome.com/5b8e63c5df.js"></script>
+    <link href="~/Content/Site.css" rel="stylesheet" />
+    <link href="~/Content/mobile.css" rel="stylesheet" />
+    @*<script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>*@
+    @RenderSection("header", required: false)
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".navbar-brand").click(function () {
+                location = "/";
+            })
+            //enable popover
+            $('[data-toggle="popover"]').popover()
+            
+            //var logged = getCookie("logged");
+            //if (logged) {
+            //    var logtext = "Olá " + getCookie("loggedName") + ", <a href='/site/areacliente' class='f-branca'>Área do Cliente</a> | <a href='/site/logout' class='f-branca'>Sair</a>";
+            //    $("#loginarea").html(logtext);
+            //    //mobile part
+            //    $("#moblogin").text("Sair");
+            //    $("#moblogin").attr("href", "/site/logout");
+            //    $("#mobAreaCliente").show();
+            //    $("#loggedmob").show();
+            //    $("#novaPromo").attr("href", "/site/areacliente");
+            //}
+            //else {
+            //    $("#loggedmob").hide();
+            //}
+
+        });
+    </script>
+    <style type="text/css">
+    </style>
+    @*<script type="text/javascript" src="//maps.googleapis.com/maps/api/js?v=3.exp&libraries=places&key=AIzaSyCKSYavWd6TxWDIKyaie9rfl45MGDmL1Fk&ver=3.exp"></script>*@
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+</head>
+<body>
+    <nav class="navbar navbar-toggleable-md navbar-inverse navbar-light bg-faded">
+        <div class="container">
+            <h2 class="f-branca">Blath!</h2>
+        </div>
+    </nav>
+
+    @RenderBody()
+    <footer>
+        <div class="container">
+
+            <div class="row">
+                <div class="col-md-4">
+                    <a class="" href="/site/quemsomos">Quem Somos</a><br />
+                    <a class="" href="/site/cadastrocliente">Cadastre-se</a><br />
+                    <a class="" href="/site/login">Login</a>
+                </div>
+                <div class="col-md-4">
+                    <a class="" href="/site/cadastrocliente">Crie uma Promoção (grátis)</a><br />
+                    <a class="" href="/site/faq">Perguntas Frequentes</a><br />
+                    <a class="" href="/site/faleconosco">Fale Conosco</a>
+                </div>
+                <div class="col-md-4">
+
+                    <a class="" href="/site/politicaprivacidade">Política de Privacidade</a><br />
+                    <a class="" href="/site/termo">Termo do site</a>
+                </div>
+            </div>
+            <div style="padding:2px 4px; font-size:11px; margin-top:15px; border-top:#fff solid 1px;">
+                &copy; @DateTime.Now.Year - Promoção Agora
+            </div>
+
+
+
+        </div>
+    </footer>
+    @RenderSection("scripts", required: false)
+    <script src="~/Scripts/jquery.mask.min.js"></script>
+</body>
+</html>

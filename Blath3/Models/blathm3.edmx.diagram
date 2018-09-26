@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="29d1cbb395894674adee89b503d01df6" Name="Diagram1">
+        <EntityTypeShape EntityType="Blath3Model.Anuncio" Width="1.5" PointX="5.25" PointY="7" IsExpanded="true" />
+        <EntityTypeShape EntityType="Blath3Model.Categoria" Width="1.5" PointX="3.75" PointY="17.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Blath3Model.CatSub" Width="1.5" PointX="6" PointY="16.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Blath3Model.Empresa" Width="1.5" PointX="3" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Blath3Model.EmpSub" Width="1.5" PointX="8.25" PointY="7.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Blath3Model.PedEmp" Width="1.5" PointX="5.25" PointY="3.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Blath3Model.PedEmpChat" Width="1.5" PointX="7.5" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Blath3Model.Pedido" Width="1.5" PointX="6" PointY="11.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Blath3Model.Subcategoria" Width="1.5" PointX="3.75" PointY="13.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Blath3Model.Usuario" Width="1.5" PointX="0.75" PointY="6.125" IsExpanded="true" />
+        <AssociationConnector Association="Blath3Model.FK_Anuncio_Empresa" ManuallyRouted="false" />
+        <AssociationConnector Association="Blath3Model.FK_CatSub_Categoria" ManuallyRouted="false" />
+        <AssociationConnector Association="Blath3Model.FK_CatSub_Subcategoria" ManuallyRouted="false" />
+        <AssociationConnector Association="Blath3Model.FK_Empresa_Usuario" ManuallyRouted="false" />
+        <AssociationConnector Association="Blath3Model.FK_EmpSub_Empresa" ManuallyRouted="false" />
+        <AssociationConnector Association="Blath3Model.FK_PedidoEmp_Empresa" ManuallyRouted="false" />
+        <AssociationConnector Association="Blath3Model.FK_EmpSub_Subcategoria" ManuallyRouted="false" />
+        <AssociationConnector Association="Blath3Model.FK_PedEmpChat_PedEmp" ManuallyRouted="false" />
+        <AssociationConnector Association="Blath3Model.FK_PedidoEmp_Pedido" ManuallyRouted="false" />
+        <AssociationConnector Association="Blath3Model.FK_Pedido_Subcategoria" ManuallyRouted="false" />
+        <AssociationConnector Association="Blath3Model.FK_Pedido_Usuario" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

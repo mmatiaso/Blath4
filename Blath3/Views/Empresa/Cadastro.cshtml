@@ -1,0 +1,174 @@
+﻿
+@{
+    ViewBag.Title = "Cadastro";
+    Layout = "~/Views/Shared/_Layout_LP.cshtml";
+}
+
+@section header{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#FormCadastro").submit(function () {
+                location = "/empresa/checkout";
+            })
+        });
+    </script>
+    }
+
+
+<!--  MODAL  -->
+<div class="modal fade" id="ModalPasso1" tabindex="-1" role="dialog" aria-labelledby="ModalPasso1Title" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="ModalPasso1Title">Passo 1 - Criando a sua conta</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="FormCadastro" action="" method="post">
+                    <h5>Informe o seu email de contato:</h5>
+                    <input type="email" id="txt_email" name="email" class="w-100 mb-2 f14r" placeholder="Digite seu email" />
+                    <input type="hidden" name="tipoCliente" value="EMPRESA" />
+                    <input type="hidden" name="idCampanha" value="" />
+                    <button type="submit" id="CTACadastro" class="btn btn-orange w-100 btn-lg">CRIAR MINHA CONTA</button>
+                </form>
+            </div>
+           
+        </div>
+    </div>
+</div>
+
+<!-- Pagina -->
+
+<main role="main">
+
+    <!-- Main jumbotron for a primary marketing message or call to action -->
+    @*<div class="jumbotron">
+            <div class="container text-center">
+                <h1 class="display-3">Seu Anúncio na Palma do seu Cliente</h1>
+                <p>This is a template for a simple marketing or informational website. It includes a large callout called a jumbotron and three supporting pieces of content. Use it as a starting point to create something more unique.</p>
+                <p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more »</a></p>
+            </div>
+        </div>*@
+
+    <div class="full-container">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8">
+                    <h1>Seu Anúncio no Blath!</h1>
+                    <p class="olho">Seja encontrado por mais de 500 clientes.</p>
+                    <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#ModalPasso1">Experimente por 3 Meses »</button>
+                    <p class="asteristico f9r">&nbsp; * Sem necessidade de cartão de crédito.</p>
+
+
+                </div>
+                <div class="col-md-4">
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="widget-1" id="beneficios">
+        <div class="container mb-2">
+            <!-- Example row of columns -->
+            <div class="row">
+                <div class="col-md-4">
+                    <h3>Rápida publicação do seu anúncio</h3>
+                    <p>
+                        Seu anúncio será publicado em poucos minutos no site do Blath! Basta preencher os dados da sua empresa, alguns
+                        dados pessoais e informações do anúncio.
+                    </p>
+                    @*<p><a class="btn btn-secondary" href="#" role="button">View details »</a></p>*@
+                </div>
+                <div class="col-md-4">
+                    <h3>Tenha visibilidade em todo Brasil</h3>
+                    <p>
+                        O seu anúncio pode ter visibildade em todo o Brasil, no seu estado ou na sua cidade. Você poderá escolher qual o
+                        alcance do seu anúncio dependendo da sua área de atuação.
+                    </p>
+
+                </div>
+                <div class="col-md-4">
+                    <h3>Receba pedidos de orçamentos em seu email</h3>
+                    <p>Você receberá os pedidos de orçamentos em seu email e tambem na sua área de controle no site. </p>
+
+                </div>
+            </div>
+
+        </div><!-- /container -->
+
+    </div>
+
+    <!--   Preço   -->
+    <div class="price-area">
+        <div class="container">
+            <div class="row text-center">
+                <div class="col-xs-12 col-md-12 col-sm-offset-3">
+                    <div class="page-title">
+                        <h2>Planos</h2>
+                        <p>
+                            A diferença entre os planos está no alcance do anúncio. <br />
+                            Temos planos de abrangência de cidade, estado ou nacional.<br />
+                            Selecione abaixo qual o melhor plano do Blath! para a sua empresa:
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-sm-4">
+                    <div class="price-table">
+                        <h3 class="price-title">Plano CIDADE</h3>
+                        <hr>
+                        <ul class="list-unstyled">
+                            <li><strong class="amount">R$ <span class="big">20</span></strong>/Mês</li>
+                            <li>Visibilidade do anúncio <br />na <b>CIDADE</b> de atuação</li>
+                            <li>Área de Membros</li>
+                            <li>Pedidos de Orçamento</li>
+                            <li>Área de Clientes</li>
+                            <li>Suporte por Email</li>
+                        </ul>
+                        <hr>
+                        <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#ModalPasso1">Experimentar por 3 meses</a>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-4">
+                    <div class="price-table">
+                        <span class="price-info"><span class="ti-crown"></span></span>
+                        <h3 class="price-title">Plano ESTADO</h3>
+                        <hr>
+                        <ul class="list-unstyled">
+                            <li><strong class="amount">R$ <span class="big">25</span></strong>/Mês</li>
+                            <li>Visibilidade do anúncio <br />no <b>ESTADO</b> de atuação</li>
+                            <li>Área de Membros</li>
+                            <li>Pedidos de Orçamento</li>
+                            <li>Área de Clientes</li>
+                            <li>Suporte por Email</li>
+                        </ul>
+                        <hr>
+                        <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#ModalPasso1">Experimentar por 3 meses</a>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-4">
+                    <div class="price-table">
+                        <h3 class="price-title">Plano BRASIL</h3>
+                        <hr>
+                        <ul class="list-unstyled">
+                            <li><strong class="amount">R$ <span class="big">35</span></strong>/Mês</li>
+                            <li>Visibilidade do anúncio <br />em todo <b>BRASIL</b></li>
+                            <li>Área de Membros</li>
+                            <li>Pedidos de Orçamento</li>
+                            <li>Área de Clientes</li>
+                            <li>Suporte por Email</li>
+                        </ul>
+                        <hr>
+                        <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#ModalPasso1">Experimentar por 3 meses</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</main>
+

@@ -1,0 +1,391 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <meta name="keywords" content="promoção, promocao, promoções perto de mim, promocao bairro, melhores promoções, oferta, ofertas perto de mim, desconto, melhores ofertas, melhores descontos, anunciar minha empresa, anuncio, divulgação, divulgar empresa" />
+    <meta name="description" content="O Promoção Agora é um site de promoções, que exibe as promoções mais próximas de onde você está. Nosso objetivo é aproximar todas as pessoas e empresas que fazem algum serviço ou vendem algum produto dos seus clientes em potencial." />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="manifest" href="/manifest.json">
+    <link rel="shortcut icon" href="/icone192x192.png" type="image/ico" />
+    @*<link rel="apple-touch-icon" sizes="57x57" href="/images/apple-icon-57x57.png" />
+        <link rel="apple-touch-icon" sizes="72x72" href="/images/apple-icon-72x72.png" />
+        <link rel="apple-touch-icon" sizes="114x114" href="/images/apple-icon-114x114.png" />
+        <link rel="apple-touch-icon" sizes="144x144" href="/images/apple-icon-144x144.png" />*@
+    <link rel="canonical" href="https://www.blath.com.br" />
+    <meta property="og:locale" content="pt_BR" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Blath! - Encotre o melhor custo benefício para o serviço que você precisa" />
+    <meta property="og:description" content="O Promoção Agora é um site de promoções, que exibe as promoções mais próximas de onde você está. Nosso objetivo é aproximar todas as pessoas e empresas que fazem algum serviço ou vendem algum produto dos seus clientes em potencial." />
+    <meta property="og:url" content="https://www.blath.com.br/site/" />
+    <meta property="og:site_name" content="Promoção Agora" />
+    <meta property="website:publisher" content="https://www.facebook.com/promocaoagorasite/" />
+    <meta property="website:tag" content="promocao perto" />
+    <meta property="website:tag" content="ofertas perto" />
+    <meta property="website:tag" content="promocoes restaurante" />
+    <meta property="website:tag" content="melhores promocoes" />
+    <meta property="website:tag" content="melhores ofertas" />
+
+
+    <link href="~/Content/jquery-ui.min.css" rel="stylesheet" />
+    @*<script src="~/Scripts/jquery-3.3.1.min.js"></script>*@
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+            crossorigin="anonymous"></script>
+    @Scripts.Render("~/bundles/modernizr")
+    @*@Scripts.Render("~/bundles/jquery")*@
+    @Scripts.Render("~/bundles/bootstrap")
+    @Styles.Render("~/Content/css")
+
+    <script src="~/Scripts/util-site.js"></script>
+    <script type="text/javascript" src="~/Scripts/site.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Lora" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,900" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,900" rel="stylesheet">
+    <script src="https://use.fontawesome.com/5b8e63c5df.js"></script>
+    <link href="~/Content/Site.css" rel="stylesheet" />
+    <link href="~/Content/mobile.css" rel="stylesheet" />
+
+    @*<script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>*@
+    @RenderSection("header", required: false)
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".navbar-brand").click(function () {
+                location = "/";
+            })
+            var logged = getCookie("logged");
+            if (logged) {
+                var logtext = "Olá " + getCookie("loggedName") + ", <a href='/site/areacliente' class='f-branca'>Área do Cliente</a> | <a href='/site/logout' class='f-branca'>Sair</a>";
+                $("#loginarea").html(logtext);
+                //mobile part
+                $("#moblogin").text("Sair");
+                $("#moblogin").attr("href", "/site/logout");
+                $("#mobAreaCliente").show();
+                $("#loggedmob").show();
+                $("#novaPromo").attr("href", "/site/areacliente");
+            }
+            else {
+                $("#loggedmob").hide();
+            }
+
+        });
+    </script>
+    <style type="text/css">
+    </style>
+    @*<script type="text/javascript" src="//maps.googleapis.com/maps/api/js?v=3.exp&libraries=places&key=AIzaSyCKSYavWd6TxWDIKyaie9rfl45MGDmL1Fk&ver=3.exp"></script>*@
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+</head>
+<body>
+    <a id="inicio"></a>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+
+        <div class="container">
+            <div class="row w-100">
+                <!--  Icone logado -->
+                <div id="loggedmob" class="mobile f-branca col-3">
+                    <a class="f-branca btn btn-success" href="/site/areacliente"><i class="fa fa-user"></i></a>
+                </div>
+
+                <div id="div-logo" class="col-md-2 col-6 p-md-0">
+                    <a href="/"><h1>Blath!</h1></a>
+                </div>
+
+                <!-- MENU MOBILE  -->
+                <div class="col-6 mobile text-right pr-0">
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#menuSupMobile" aria-controls="menuSupMobile" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                </div>
+
+
+
+
+                <div class="p-0 desktop col-md-9 text-right" id="div-buscatopo">
+                    <div class="pt-2">
+                        <img src="~/Content/img/local_icon.png" /> @*<span class="desktop">Onde você está: </span>*@
+                        <select class="custom-select2" id="usuarioUF" required=""></select>
+                        <select class="custom-select2 w-25" id="usuarioCidade" required=""></select>
+                    </div>
+
+                    @*<input type="text" id="txt_busca" placeholder="Digite o que você quer buscar" style="width:80%" />
+                        <button type="button" id="btnBusca" class="btn btn-primary">Buscar</button><br />*@
+                </div>
+
+                <div id="loginarea" class="desktop f-branca col-md-1 p-1">
+                    @*<a class="f-branca" href="/site/login">Login</a>*@
+                    <div class="text-right">
+                        <div class="dropdown">
+                            <button class="btn btn-orange dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fa fa-user"></i> Login
+                            </button>
+                            <div class="dropdown-menu  dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item" href="#">Área do Cliente</a>
+                                <a class="dropdown-item" href="#">Sair</a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="collapse navbar-collapse flex-row mr-5" id="menuSupMobile">
+                <div class="navbar-nav mobile">
+                    <a class="nav-item nav-link active" href="#">Página Inicial <span class="sr-only">(current)</span></a>
+                    <a class="nav-item nav-link" id="mobAreaCliente" href="/site/areacliente" style="display:none;">Área do Cliente</a>
+
+                    <a class="nav-item nav-link" href="/site/cadastrocliente">Crie uma Promoção (grátis)</a>
+                    <a class="nav-item nav-link" href="/site/quemsomos">Quem Somos</a>
+                    <a class="nav-item nav-link" href="/site/faq">Perguntas Frequentes</a>
+                    <a class="nav-item nav-link" href="/site/faleconosco">Fale Conosco</a>
+                    <a class="nav-item nav-link" href="/site/politicaprivacidade">Política de Privacidade</a>
+                    <a class="nav-item nav-link" href="/site/termo">Termo do site</a>
+                    <a class="nav-item nav-link" id="moblogin" href="/site/login">Login</a>
+                    @*<a class="nav-item nav-link" href="#">Alimentação</a>
+                        <a class="nav-item nav-link" href="#">Educação</a>
+                        <a class="nav-item nav-link" href="#">Saúde</a>
+                        <a class="nav-item nav-link" href="#">Entretenimento</a>
+                        <a class="nav-item nav-link" href="#">Esporte</a>*@
+                    @*<a class="nav-item nav-link disabled" href="#">Saúde</a>*@
+                </div>
+            </div>
+
+
+
+
+
+
+
+        </div>
+    </nav>
+    @* MENU *@
+    <div id="menu">
+        <div class="container">
+
+            <div class="menu-output"></div>
+
+            @*<div class="desktop">
+                    <div class="row py-2 menusite">
+                        <a href="/home/categoria">Casa e Reformas</a>
+                        <a href="#">Aulas</a>
+                        <a href="#">Infantil</a>
+                        <a href="#">Consultores</a>
+                        <a href="#">Eventos</a>
+                        <a href="#">Médicos e Clínicas</a>
+                        <a href="#">Moda e Beleza</a>
+                        <a href="#">Autos</a>
+                        <a href="#">Delivery</a>
+                        <a href="#">Transporte</a>
+                    </div>
+                </div>*@
+
+        </div>
+        <div class="mobile">
+            <div class="">
+                <div class="collapse" id="categoriasLista">
+
+                    <div id="accordionSup">
+
+                        <div class="card">
+                            <div class="card-header" data-toggle="collapse" href="#reformas">
+                                Reformas e Consertos
+                            </div>
+                            <div id="reformas" class="collapse" data-parent="#accordionSup">
+                                <div class="card-body">
+                                    <div class="divMenuMob cat">
+                                        REFORMAS
+                                    </div>
+                                    <div class="divMenuMob subcat">
+                                        <a href="#">Eletricista</a>
+                                    </div>
+                                    <div class="divMenuMob subcat">
+                                        <a href="#">Pedreiro</a>
+                                    </div>
+                                    <div class="divMenuMob subcat">
+                                        <a href="#">Bombeiro</a>
+                                    </div>
+
+                                    <div class="divMenuMob cat">
+                                        Consertos
+                                    </div>
+                                    <div class="divMenuMob subcat">
+                                        <a href="#">Televisão</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-header" data-toggle="collapse" href="#comer">
+                                Comer e Beber
+                            </div>
+                            <div id="comer" class="collapse" data-parent="#accordionSup">
+                                <div class="card-body">
+                                    <div class="divMenuMob cat">
+                                        Restaurantes
+                                    </div>
+                                    <div class="divMenuMob subcat">
+                                        <a href="#">Italiano</a>
+                                    </div>
+                                    <div class="divMenuMob subcat">
+                                        <a href="#">Pizzaria</a>
+                                    </div>
+                                    <div class="divMenuMob subcat">
+                                        <a href="#">Japonês</a>
+                                    </div>
+
+                                    <div class="divMenuMob cat">
+                                        Bares e Discotecas
+                                    </div>
+                                    <div class="divMenuMob subcat">
+                                        <a href="#">Bares</a>
+                                    </div>
+                                    <div class="divMenuMob subcat">
+                                        <a href="#">Boates</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        @*<div class="card">
+                                <div class="card-header">
+                                    <a class="collapsed card-link" data-toggle="collapse" href="#collapseThree">
+                                        Collapsible Group Item #3
+                                    </a>
+                                </div>
+                                <div id="collapseThree" class="collapse" data-parent="#accordionSup">
+                                    <div class="card-body">
+                                        Lorem ipsum..
+                                    </div>
+                                </div>
+                            </div>*@
+
+                    </div>
+
+
+                </div>
+                <div id="vercat" class="m-auto text-center font-weight-bold p-1" data-toggle="collapse" href="#categoriasLista" role="button" aria-expanded="false" aria-controls="categoriasLista">
+                    Ver Categorias
+                    <i class="fa fa-arrow-down"></i>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+    <div class="corpo mb-2">
+        @RenderBody()
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <a class="" href="/site/quemsomos">Quem Somos</a><br />
+                    <a class="" href="/site/cadastrocliente">Cadastre-se</a><br />
+                    <a class="" href="/site/login">Login</a>
+                </div>
+                <div class="col-md-4">
+                    <a class="" href="/site/cadastrocliente">Crie uma Promoção (grátis)</a><br />
+                    <a class="" href="/site/faq">Perguntas Frequentes</a><br />
+                    <a class="" href="/site/faleconosco">Fale Conosco</a>
+                </div>
+                <div class="col-md-4">
+
+                    <a class="" href="/site/politicaprivacidade">Política de Privacidade</a><br />
+                    <a class="" href="/site/termo">Termo do site</a>
+                </div>
+            </div>
+            <div style="padding:2px 4px; font-size:11px; margin-top:15px; color:#fff">
+                &copy; @DateTime.Now.Year - Promoção Agora
+            </div>
+        </div>
+
+
+    </footer>
+
+    @RenderSection("scripts", required: false)
+
+    <!-- Mustache -->
+    <script id="mustache_menu" type="text/template">
+        <div class="item">
+            
+            <div class="desktop">
+                <div class="row py-2 menusite">
+                    {{#menushow}}
+                    <a href="/home/categoria">{{Nome}}</a>
+                    {{/menushow}}
+                </div>
+            </div>
+        </div>
+
+    </script>
+    <script src="~/Scripts/mustache.min.js"></script>
+    <script>
+        var targetContainer = $(".menu-output"),
+            //templateDefined = $(".target-output").data("template-chosen"),
+            template = $("#mustache_menu").html();
+
+        //var menushow = {};
+
+        //var menushow = {
+        //    "menushow": [
+        //        {
+        //            "CatSubs": [],
+        //            "CategoriaId": 1,
+        //            "Nome": "Casa e Reforma",
+        //            "Descricao": null,
+        //            "Tags": null,
+        //            "Ativo": false,
+        //            "CriadoEm": "2018-09-19T23:15:35.057",
+        //            "AtualizadoEm": "2018-09-23T10:40:38.237",
+        //            "NomeLink": "casa-e-reformas"
+        //        },
+        //        {
+        //            "CatSubs": [],
+        //            "CategoriaId": 2,
+        //            "Nome": "Aulas",
+        //            "Descricao": "São aulas",
+        //            "Tags": "aula professor particular ingles idiomas fisica quimica matematica",
+        //            "Ativo": true,
+        //            "CriadoEm": null,
+        //            "AtualizadoEm": "2018-09-22T22:15:26.727",
+        //            "NomeLink": "aulas"
+        //        },
+        //        {
+        //            "CatSubs": [],
+        //            "CategoriaId": 3,
+        //            "Nome": "Infantils",
+        //            "Descricao": "descricao",
+        //            "Tags": "creche escolas",
+        //            "Ativo": true,
+        //            "CriadoEm": "2018-09-22T14:16:19.26",
+        //            "AtualizadoEm": "2018-09-22T14:16:19.26",
+        //            "NomeLink": null
+        //        }
+        //    ]
+        //};
+
+        $.get("/api/categoria/menu", function (data, status) {
+            //alert("Status: " + status);
+            var menushow = data;
+
+            var html = Mustache.to_html(template, menushow);
+
+            $(targetContainer).html(html);
+        });
+
+        
+
+    </script>
+
+</body >
+</html >

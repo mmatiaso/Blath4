@@ -1,0 +1,944 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Blath3Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Anuncio">
+          <Key>
+            <PropertyRef Name="AnuncioId" />
+          </Key>
+          <Property Name="AnuncioId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AnuncioCode" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="EmpresaId" Type="int" />
+          <Property Name="Frase1" Type="varchar" MaxLength="100" />
+          <Property Name="Frase2" Type="varchar" MaxLength="100" />
+          <Property Name="ViewsAnuncio" Type="int" />
+          <Property Name="ViewsPagina" Type="int" />
+          <Property Name="Ativo" Type="bit" />
+          <Property Name="CriadoEm" Type="datetime" />
+          <Property Name="AtualizadoEm" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Categoria">
+          <Key>
+            <PropertyRef Name="CategoriaId" />
+          </Key>
+          <Property Name="CategoriaId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nome" Type="varchar" MaxLength="50" />
+          <Property Name="Descricao" Type="varchar" MaxLength="200" />
+          <Property Name="NomeLink" Type="varchar" MaxLength="100" />
+          <Property Name="Tags" Type="varchar" MaxLength="500" />
+          <Property Name="Ativo" Type="bit" />
+          <Property Name="CriadoEm" Type="datetime" />
+          <Property Name="AtualizadoEm" Type="datetime" />
+        </EntityType>
+        <EntityType Name="CatSub">
+          <Key>
+            <PropertyRef Name="CatSubId" />
+          </Key>
+          <Property Name="CatSubId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CategoriaId" Type="int" />
+          <Property Name="SubcategoriaId" Type="int" />
+          <Property Name="Tema" Type="varchar" MaxLength="50" />
+          <Property Name="CriadoEm" Type="datetime" />
+          <Property Name="AtualizadoEm" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Empresa">
+          <Key>
+            <PropertyRef Name="EmpresaId" />
+          </Key>
+          <Property Name="EmpresaId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EmpresaCode" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="UsuarioId" Type="int" />
+          <Property Name="Nome" Type="varchar" MaxLength="200" />
+          <Property Name="RazaoSocial" Type="varchar" MaxLength="100" />
+          <Property Name="CNPJ" Type="varchar" MaxLength="20" />
+          <Property Name="UF" Type="varchar" MaxLength="2" />
+          <Property Name="Cidade" Type="varchar" MaxLength="200" />
+          <Property Name="Bairro" Type="varchar" MaxLength="100" />
+          <Property Name="Logradouro" Type="varchar" MaxLength="300" />
+          <Property Name="LogrNumero" Type="varchar" MaxLength="10" />
+          <Property Name="Complemento" Type="varchar" MaxLength="50" />
+          <Property Name="CEP" Type="varchar" MaxLength="15" />
+          <Property Name="Telefone1" Type="varchar" MaxLength="20" />
+          <Property Name="Telefone2" Type="varchar" MaxLength="20" />
+          <Property Name="Whatsapp" Type="varchar" MaxLength="20" />
+          <Property Name="Site" Type="varchar" MaxLength="300" />
+          <Property Name="Dominio" Type="varchar" MaxLength="100" />
+          <Property Name="AreaAtuacaoUF" Type="varchar" MaxLength="2" />
+          <Property Name="AreaAtuacaoCidade" Type="varchar" MaxLength="200" />
+          <Property Name="AnuncioId" Type="int" />
+          <Property Name="Descricao" Type="varchar" MaxLength="800" />
+          <Property Name="Ativo" Type="bit" />
+          <Property Name="CriadoEm" Type="datetime" />
+          <Property Name="AtualizadoEm" Type="datetime" />
+        </EntityType>
+        <EntityType Name="EmpSub">
+          <Key>
+            <PropertyRef Name="EmpSubId" />
+          </Key>
+          <Property Name="EmpSubId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EmpresaId" Type="int" />
+          <Property Name="SubcategoriaId" Type="int" />
+          <Property Name="CriadoEm" Type="datetime" />
+          <Property Name="AtualizadoEm" Type="datetime" />
+        </EntityType>
+        <EntityType Name="PedEmp">
+          <Key>
+            <PropertyRef Name="PedEmpId" />
+          </Key>
+          <Property Name="PedEmpId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PedidoId" Type="int" />
+          <Property Name="EmpresaId" Type="int" />
+          <Property Name="CriadoEm" Type="datetime" />
+          <Property Name="AtualizadoEm" Type="datetime" />
+        </EntityType>
+        <EntityType Name="PedEmpChat">
+          <Key>
+            <PropertyRef Name="PedEmpChatId" />
+          </Key>
+          <Property Name="PedEmpChatId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PedEmpId" Type="int" />
+          <Property Name="Emissor" Type="varchar" MaxLength="15" />
+          <Property Name="CriadoEm" Type="datetime" />
+          <Property Name="AtualizadoEm" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Pedido">
+          <Key>
+            <PropertyRef Name="PedidoId" />
+          </Key>
+          <Property Name="PedidoId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PedidoCode" Type="uniqueidentifier" />
+          <Property Name="UsuarioId" Type="int" />
+          <Property Name="SubcategoriaId" Type="int" />
+          <Property Name="Descricao" Type="varchar" MaxLength="500" />
+          <Property Name="Periodo" Type="varchar" MaxLength="50" />
+          <Property Name="Local" Type="varchar" MaxLength="200" />
+          <Property Name="Status" Type="varchar" MaxLength="20" />
+          <Property Name="Ativo" Type="bit" />
+          <Property Name="CriadoEm" Type="datetime" />
+          <Property Name="AtualizadoEm" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Subcategoria">
+          <Key>
+            <PropertyRef Name="SubcategoriaId" />
+          </Key>
+          <Property Name="SubcategoriaId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nome" Type="varchar" MaxLength="50" />
+          <Property Name="NomeLink" Type="varchar" MaxLength="50" />
+          <Property Name="Descricao" Type="varchar" MaxLength="200" />
+          <Property Name="Tags" Type="varchar" MaxLength="500" />
+          <Property Name="Ativo" Type="bit" />
+          <Property Name="CriadoEm" Type="datetime" />
+          <Property Name="AtualizadoEm" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="UsuarioId" />
+          </Key>
+          <Property Name="UsuarioId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UsuarioCode" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Nome" Type="varchar" MaxLength="150" />
+          <Property Name="Email" Type="varchar" MaxLength="140" />
+          <Property Name="CPF" Type="varchar" MaxLength="15" />
+          <Property Name="Senha" Type="varchar" MaxLength="20" />
+          <Property Name="UF" Type="varchar" MaxLength="2" />
+          <Property Name="Cidade" Type="varchar" MaxLength="150" />
+          <Property Name="Bairro" Type="varchar" MaxLength="100" />
+          <Property Name="Logradouro" Type="varchar" MaxLength="200" />
+          <Property Name="LogrNumero" Type="varchar" MaxLength="10" />
+          <Property Name="Complemento" Type="varchar" MaxLength="50" />
+          <Property Name="CEP" Type="varchar" MaxLength="50" />
+          <Property Name="Telefone" Type="varchar" MaxLength="20" />
+          <Property Name="FacebookId" Type="varchar" MaxLength="50" />
+          <Property Name="Ativo" Type="bit" />
+          <Property Name="MktCode" Type="varchar" MaxLength="20" />
+          <Property Name="Status" Type="varchar" MaxLength="20" />
+          <Property Name="CriadoEm" Type="datetime" />
+          <Property Name="AtualizadoEm" Type="datetime" />
+        </EntityType>
+        <Association Name="FK_Anuncio_Empresa">
+          <End Role="Empresa" Type="Self.Empresa" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Anuncio" Type="Self.Anuncio" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empresa">
+              <PropertyRef Name="EmpresaId" />
+            </Principal>
+            <Dependent Role="Anuncio">
+              <PropertyRef Name="EmpresaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CatSub_Categoria">
+          <End Role="Categoria" Type="Self.Categoria" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="CatSub" Type="Self.CatSub" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Categoria">
+              <PropertyRef Name="CategoriaId" />
+            </Principal>
+            <Dependent Role="CatSub">
+              <PropertyRef Name="CategoriaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CatSub_Subcategoria">
+          <End Role="Subcategoria" Type="Self.Subcategoria" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="CatSub" Type="Self.CatSub" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Subcategoria">
+              <PropertyRef Name="SubcategoriaId" />
+            </Principal>
+            <Dependent Role="CatSub">
+              <PropertyRef Name="SubcategoriaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Empresa_Usuario">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="0..1" />
+          <End Role="Empresa" Type="Self.Empresa" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="UsuarioId" />
+            </Principal>
+            <Dependent Role="Empresa">
+              <PropertyRef Name="UsuarioId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EmpSub_Empresa">
+          <End Role="Empresa" Type="Self.Empresa" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="EmpSub" Type="Self.EmpSub" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empresa">
+              <PropertyRef Name="EmpresaId" />
+            </Principal>
+            <Dependent Role="EmpSub">
+              <PropertyRef Name="EmpresaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EmpSub_Subcategoria">
+          <End Role="Subcategoria" Type="Self.Subcategoria" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="EmpSub" Type="Self.EmpSub" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Subcategoria">
+              <PropertyRef Name="SubcategoriaId" />
+            </Principal>
+            <Dependent Role="EmpSub">
+              <PropertyRef Name="SubcategoriaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PedEmpChat_PedEmp">
+          <End Role="PedEmp" Type="Self.PedEmp" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="PedEmpChat" Type="Self.PedEmpChat" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PedEmp">
+              <PropertyRef Name="PedEmpId" />
+            </Principal>
+            <Dependent Role="PedEmpChat">
+              <PropertyRef Name="PedEmpId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Pedido_Subcategoria">
+          <End Role="Subcategoria" Type="Self.Subcategoria" Multiplicity="0..1" />
+          <End Role="Pedido" Type="Self.Pedido" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Subcategoria">
+              <PropertyRef Name="SubcategoriaId" />
+            </Principal>
+            <Dependent Role="Pedido">
+              <PropertyRef Name="SubcategoriaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Pedido_Usuario">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Pedido" Type="Self.Pedido" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="UsuarioId" />
+            </Principal>
+            <Dependent Role="Pedido">
+              <PropertyRef Name="UsuarioId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PedidoEmp_Empresa">
+          <End Role="Empresa" Type="Self.Empresa" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="PedEmp" Type="Self.PedEmp" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empresa">
+              <PropertyRef Name="EmpresaId" />
+            </Principal>
+            <Dependent Role="PedEmp">
+              <PropertyRef Name="EmpresaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PedidoEmp_Pedido">
+          <End Role="Pedido" Type="Self.Pedido" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="PedEmp" Type="Self.PedEmp" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pedido">
+              <PropertyRef Name="PedidoId" />
+            </Principal>
+            <Dependent Role="PedEmp">
+              <PropertyRef Name="PedidoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Blath3ModelStoreContainer">
+          <EntitySet Name="Anuncio" EntityType="Self.Anuncio" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Categoria" EntityType="Self.Categoria" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CatSub" EntityType="Self.CatSub" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Empresa" EntityType="Self.Empresa" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EmpSub" EntityType="Self.EmpSub" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PedEmp" EntityType="Self.PedEmp" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PedEmpChat" EntityType="Self.PedEmpChat" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Pedido" EntityType="Self.Pedido" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Subcategoria" EntityType="Self.Subcategoria" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Usuario" EntityType="Self.Usuario" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Anuncio_Empresa" Association="Self.FK_Anuncio_Empresa">
+            <End Role="Empresa" EntitySet="Empresa" />
+            <End Role="Anuncio" EntitySet="Anuncio" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CatSub_Categoria" Association="Self.FK_CatSub_Categoria">
+            <End Role="Categoria" EntitySet="Categoria" />
+            <End Role="CatSub" EntitySet="CatSub" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CatSub_Subcategoria" Association="Self.FK_CatSub_Subcategoria">
+            <End Role="Subcategoria" EntitySet="Subcategoria" />
+            <End Role="CatSub" EntitySet="CatSub" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Empresa_Usuario" Association="Self.FK_Empresa_Usuario">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Empresa" EntitySet="Empresa" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EmpSub_Empresa" Association="Self.FK_EmpSub_Empresa">
+            <End Role="Empresa" EntitySet="Empresa" />
+            <End Role="EmpSub" EntitySet="EmpSub" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EmpSub_Subcategoria" Association="Self.FK_EmpSub_Subcategoria">
+            <End Role="Subcategoria" EntitySet="Subcategoria" />
+            <End Role="EmpSub" EntitySet="EmpSub" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PedEmpChat_PedEmp" Association="Self.FK_PedEmpChat_PedEmp">
+            <End Role="PedEmp" EntitySet="PedEmp" />
+            <End Role="PedEmpChat" EntitySet="PedEmpChat" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Pedido_Subcategoria" Association="Self.FK_Pedido_Subcategoria">
+            <End Role="Subcategoria" EntitySet="Subcategoria" />
+            <End Role="Pedido" EntitySet="Pedido" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Pedido_Usuario" Association="Self.FK_Pedido_Usuario">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Pedido" EntitySet="Pedido" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PedidoEmp_Empresa" Association="Self.FK_PedidoEmp_Empresa">
+            <End Role="Empresa" EntitySet="Empresa" />
+            <End Role="PedEmp" EntitySet="PedEmp" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PedidoEmp_Pedido" Association="Self.FK_PedidoEmp_Pedido">
+            <End Role="Pedido" EntitySet="Pedido" />
+            <End Role="PedEmp" EntitySet="PedEmp" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Blath3Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Anuncio">
+          <Key>
+            <PropertyRef Name="AnuncioId" />
+          </Key>
+          <Property Name="AnuncioId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AnuncioCode" Type="Guid" Nullable="false" />
+          <Property Name="EmpresaId" Type="Int32" />
+          <Property Name="Frase1" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Frase2" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ViewsAnuncio" Type="Int32" />
+          <Property Name="ViewsPagina" Type="Int32" />
+          <Property Name="Ativo" Type="Boolean" />
+          <Property Name="CriadoEm" Type="DateTime" Precision="3" />
+          <Property Name="AtualizadoEm" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Empresa" Relationship="Self.FK_Anuncio_Empresa" FromRole="Anuncio" ToRole="Empresa" />
+        </EntityType>
+        <EntityType Name="Categoria">
+          <Key>
+            <PropertyRef Name="CategoriaId" />
+          </Key>
+          <Property Name="CategoriaId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nome" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Descricao" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Tags" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="Ativo" Type="Boolean" />
+          <Property Name="CriadoEm" Type="DateTime" Precision="3" />
+          <Property Name="AtualizadoEm" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="CatSubs" Relationship="Self.FK_CatSub_Categoria" FromRole="Categoria" ToRole="CatSub" />
+          <Property Name="NomeLink" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="CatSub">
+          <Key>
+            <PropertyRef Name="CatSubId" />
+          </Key>
+          <Property Name="CatSubId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CategoriaId" Type="Int32" />
+          <Property Name="SubcategoriaId" Type="Int32" />
+          <Property Name="Tema" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CriadoEm" Type="DateTime" Precision="3" />
+          <Property Name="AtualizadoEm" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Categoria" Relationship="Self.FK_CatSub_Categoria" FromRole="CatSub" ToRole="Categoria" />
+          <NavigationProperty Name="Subcategoria" Relationship="Self.FK_CatSub_Subcategoria" FromRole="CatSub" ToRole="Subcategoria" />
+        </EntityType>
+        <EntityType Name="Empresa">
+          <Key>
+            <PropertyRef Name="EmpresaId" />
+          </Key>
+          <Property Name="EmpresaId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EmpresaCode" Type="Guid" Nullable="false" />
+          <Property Name="UsuarioId" Type="Int32" />
+          <Property Name="Nome" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="RazaoSocial" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="CNPJ" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="UF" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Name="Cidade" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Bairro" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="CEP" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="Telefone1" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Telefone2" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Whatsapp" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Site" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="Dominio" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="AreaAtuacaoUF" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Name="AreaAtuacaoCidade" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="AnuncioId" Type="Int32" />
+          <Property Name="Descricao" Type="String" MaxLength="800" FixedLength="false" Unicode="false" />
+          <Property Name="Ativo" Type="Boolean" />
+          <Property Name="CriadoEm" Type="DateTime" Precision="3" />
+          <Property Name="AtualizadoEm" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Anuncios" Relationship="Self.FK_Anuncio_Empresa" FromRole="Empresa" ToRole="Anuncio" />
+          <NavigationProperty Name="Usuario" Relationship="Self.FK_Empresa_Usuario" FromRole="Empresa" ToRole="Usuario" />
+          <NavigationProperty Name="EmpSubs" Relationship="Self.FK_EmpSub_Empresa" FromRole="Empresa" ToRole="EmpSub" />
+          <NavigationProperty Name="PedEmps" Relationship="Self.FK_PedidoEmp_Empresa" FromRole="Empresa" ToRole="PedEmp" />
+          <Property Name="Logradouro" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="LogrNumero" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Complemento" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="EmpSub">
+          <Key>
+            <PropertyRef Name="EmpSubId" />
+          </Key>
+          <Property Name="EmpSubId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EmpresaId" Type="Int32" />
+          <Property Name="SubcategoriaId" Type="Int32" />
+          <Property Name="CriadoEm" Type="DateTime" Precision="3" />
+          <Property Name="AtualizadoEm" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Empresa" Relationship="Self.FK_EmpSub_Empresa" FromRole="EmpSub" ToRole="Empresa" />
+          <NavigationProperty Name="Subcategoria" Relationship="Self.FK_EmpSub_Subcategoria" FromRole="EmpSub" ToRole="Subcategoria" />
+        </EntityType>
+        <EntityType Name="PedEmp">
+          <Key>
+            <PropertyRef Name="PedEmpId" />
+          </Key>
+          <Property Name="PedEmpId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PedidoId" Type="Int32" />
+          <Property Name="EmpresaId" Type="Int32" />
+          <Property Name="CriadoEm" Type="DateTime" Precision="3" />
+          <Property Name="AtualizadoEm" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Empresa" Relationship="Self.FK_PedidoEmp_Empresa" FromRole="PedEmp" ToRole="Empresa" />
+          <NavigationProperty Name="PedEmpChats" Relationship="Self.FK_PedEmpChat_PedEmp" FromRole="PedEmp" ToRole="PedEmpChat" />
+          <NavigationProperty Name="Pedido" Relationship="Self.FK_PedidoEmp_Pedido" FromRole="PedEmp" ToRole="Pedido" />
+        </EntityType>
+        <EntityType Name="PedEmpChat">
+          <Key>
+            <PropertyRef Name="PedEmpChatId" />
+          </Key>
+          <Property Name="PedEmpChatId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PedEmpId" Type="Int32" />
+          <Property Name="Emissor" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="CriadoEm" Type="DateTime" Precision="3" />
+          <Property Name="AtualizadoEm" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="PedEmp" Relationship="Self.FK_PedEmpChat_PedEmp" FromRole="PedEmpChat" ToRole="PedEmp" />
+        </EntityType>
+        <EntityType Name="Pedido">
+          <Key>
+            <PropertyRef Name="PedidoId" />
+          </Key>
+          <Property Name="PedidoId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PedidoCode" Type="Guid" />
+          <Property Name="UsuarioId" Type="Int32" />
+          <Property Name="SubcategoriaId" Type="Int32" />
+          <Property Name="Descricao" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="Periodo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Local" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Status" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Ativo" Type="Boolean" />
+          <Property Name="CriadoEm" Type="DateTime" Precision="3" />
+          <Property Name="AtualizadoEm" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="PedEmps" Relationship="Self.FK_PedidoEmp_Pedido" FromRole="Pedido" ToRole="PedEmp" />
+          <NavigationProperty Name="Subcategoria" Relationship="Self.FK_Pedido_Subcategoria" FromRole="Pedido" ToRole="Subcategoria" />
+          <NavigationProperty Name="Usuario" Relationship="Self.FK_Pedido_Usuario" FromRole="Pedido" ToRole="Usuario" />
+        </EntityType>
+        <EntityType Name="Subcategoria">
+          <Key>
+            <PropertyRef Name="SubcategoriaId" />
+          </Key>
+          <Property Name="SubcategoriaId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nome" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Descricao" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Tags" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="Ativo" Type="Boolean" />
+          <Property Name="CriadoEm" Type="DateTime" Precision="3" />
+          <Property Name="AtualizadoEm" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="CatSubs" Relationship="Self.FK_CatSub_Subcategoria" FromRole="Subcategoria" ToRole="CatSub" />
+          <NavigationProperty Name="EmpSubs" Relationship="Self.FK_EmpSub_Subcategoria" FromRole="Subcategoria" ToRole="EmpSub" />
+          <NavigationProperty Name="Pedidoes" Relationship="Self.FK_Pedido_Subcategoria" FromRole="Subcategoria" ToRole="Pedido" />
+          <Property Name="NomeLink" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="UsuarioId" />
+          </Key>
+          <Property Name="UsuarioId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UsuarioCode" Type="Guid" Nullable="false" />
+          <Property Name="Nome" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="140" FixedLength="false" Unicode="false" />
+          <Property Name="CPF" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="Senha" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="UF" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Name="Cidade" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="Bairro" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Logradouro" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="CEP" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Telefone" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="FacebookId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Ativo" Type="Boolean" />
+          <Property Name="MktCode" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Status" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="CriadoEm" Type="DateTime" Precision="3" />
+          <Property Name="AtualizadoEm" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Empresas" Relationship="Self.FK_Empresa_Usuario" FromRole="Usuario" ToRole="Empresa" />
+          <NavigationProperty Name="Pedidoes" Relationship="Self.FK_Pedido_Usuario" FromRole="Usuario" ToRole="Pedido" />
+          <Property Name="LogrNumero" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Complemento" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <Association Name="FK_Anuncio_Empresa">
+          <End Role="Empresa" Type="Self.Empresa" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Anuncio" Type="Self.Anuncio" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empresa">
+              <PropertyRef Name="EmpresaId" />
+            </Principal>
+            <Dependent Role="Anuncio">
+              <PropertyRef Name="EmpresaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CatSub_Categoria">
+          <End Role="Categoria" Type="Self.Categoria" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="CatSub" Type="Self.CatSub" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Categoria">
+              <PropertyRef Name="CategoriaId" />
+            </Principal>
+            <Dependent Role="CatSub">
+              <PropertyRef Name="CategoriaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CatSub_Subcategoria">
+          <End Role="Subcategoria" Type="Self.Subcategoria" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="CatSub" Type="Self.CatSub" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Subcategoria">
+              <PropertyRef Name="SubcategoriaId" />
+            </Principal>
+            <Dependent Role="CatSub">
+              <PropertyRef Name="SubcategoriaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Empresa_Usuario">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="0..1" />
+          <End Role="Empresa" Type="Self.Empresa" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="UsuarioId" />
+            </Principal>
+            <Dependent Role="Empresa">
+              <PropertyRef Name="UsuarioId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EmpSub_Empresa">
+          <End Role="Empresa" Type="Self.Empresa" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="EmpSub" Type="Self.EmpSub" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empresa">
+              <PropertyRef Name="EmpresaId" />
+            </Principal>
+            <Dependent Role="EmpSub">
+              <PropertyRef Name="EmpresaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PedidoEmp_Empresa">
+          <End Role="Empresa" Type="Self.Empresa" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="PedEmp" Type="Self.PedEmp" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empresa">
+              <PropertyRef Name="EmpresaId" />
+            </Principal>
+            <Dependent Role="PedEmp">
+              <PropertyRef Name="EmpresaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EmpSub_Subcategoria">
+          <End Role="Subcategoria" Type="Self.Subcategoria" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="EmpSub" Type="Self.EmpSub" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Subcategoria">
+              <PropertyRef Name="SubcategoriaId" />
+            </Principal>
+            <Dependent Role="EmpSub">
+              <PropertyRef Name="SubcategoriaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PedEmpChat_PedEmp">
+          <End Role="PedEmp" Type="Self.PedEmp" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="PedEmpChat" Type="Self.PedEmpChat" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PedEmp">
+              <PropertyRef Name="PedEmpId" />
+            </Principal>
+            <Dependent Role="PedEmpChat">
+              <PropertyRef Name="PedEmpId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PedidoEmp_Pedido">
+          <End Role="Pedido" Type="Self.Pedido" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="PedEmp" Type="Self.PedEmp" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pedido">
+              <PropertyRef Name="PedidoId" />
+            </Principal>
+            <Dependent Role="PedEmp">
+              <PropertyRef Name="PedidoId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Pedido_Subcategoria">
+          <End Role="Subcategoria" Type="Self.Subcategoria" Multiplicity="0..1" />
+          <End Role="Pedido" Type="Self.Pedido" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Subcategoria">
+              <PropertyRef Name="SubcategoriaId" />
+            </Principal>
+            <Dependent Role="Pedido">
+              <PropertyRef Name="SubcategoriaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Pedido_Usuario">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Pedido" Type="Self.Pedido" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="UsuarioId" />
+            </Principal>
+            <Dependent Role="Pedido">
+              <PropertyRef Name="UsuarioId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Blath3Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Anuncios" EntityType="Self.Anuncio" />
+          <EntitySet Name="Categorias" EntityType="Self.Categoria" />
+          <EntitySet Name="CatSubs" EntityType="Self.CatSub" />
+          <EntitySet Name="Empresas" EntityType="Self.Empresa" />
+          <EntitySet Name="EmpSubs" EntityType="Self.EmpSub" />
+          <EntitySet Name="PedEmps" EntityType="Self.PedEmp" />
+          <EntitySet Name="PedEmpChats" EntityType="Self.PedEmpChat" />
+          <EntitySet Name="Pedidoes" EntityType="Self.Pedido" />
+          <EntitySet Name="Subcategorias" EntityType="Self.Subcategoria" />
+          <EntitySet Name="Usuarios" EntityType="Self.Usuario" />
+          <AssociationSet Name="FK_Anuncio_Empresa" Association="Self.FK_Anuncio_Empresa">
+            <End Role="Empresa" EntitySet="Empresas" />
+            <End Role="Anuncio" EntitySet="Anuncios" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CatSub_Categoria" Association="Self.FK_CatSub_Categoria">
+            <End Role="Categoria" EntitySet="Categorias" />
+            <End Role="CatSub" EntitySet="CatSubs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CatSub_Subcategoria" Association="Self.FK_CatSub_Subcategoria">
+            <End Role="Subcategoria" EntitySet="Subcategorias" />
+            <End Role="CatSub" EntitySet="CatSubs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Empresa_Usuario" Association="Self.FK_Empresa_Usuario">
+            <End Role="Usuario" EntitySet="Usuarios" />
+            <End Role="Empresa" EntitySet="Empresas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EmpSub_Empresa" Association="Self.FK_EmpSub_Empresa">
+            <End Role="Empresa" EntitySet="Empresas" />
+            <End Role="EmpSub" EntitySet="EmpSubs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PedidoEmp_Empresa" Association="Self.FK_PedidoEmp_Empresa">
+            <End Role="Empresa" EntitySet="Empresas" />
+            <End Role="PedEmp" EntitySet="PedEmps" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EmpSub_Subcategoria" Association="Self.FK_EmpSub_Subcategoria">
+            <End Role="Subcategoria" EntitySet="Subcategorias" />
+            <End Role="EmpSub" EntitySet="EmpSubs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PedEmpChat_PedEmp" Association="Self.FK_PedEmpChat_PedEmp">
+            <End Role="PedEmp" EntitySet="PedEmps" />
+            <End Role="PedEmpChat" EntitySet="PedEmpChats" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PedidoEmp_Pedido" Association="Self.FK_PedidoEmp_Pedido">
+            <End Role="Pedido" EntitySet="Pedidoes" />
+            <End Role="PedEmp" EntitySet="PedEmps" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Pedido_Subcategoria" Association="Self.FK_Pedido_Subcategoria">
+            <End Role="Subcategoria" EntitySet="Subcategorias" />
+            <End Role="Pedido" EntitySet="Pedidoes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Pedido_Usuario" Association="Self.FK_Pedido_Usuario">
+            <End Role="Usuario" EntitySet="Usuarios" />
+            <End Role="Pedido" EntitySet="Pedidoes" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Blath3ModelStoreContainer" CdmEntityContainer="Blath3Entities">
+          <EntitySetMapping Name="Anuncios">
+            <EntityTypeMapping TypeName="Blath3Model.Anuncio">
+              <MappingFragment StoreEntitySet="Anuncio">
+                <ScalarProperty Name="AnuncioId" ColumnName="AnuncioId" />
+                <ScalarProperty Name="AnuncioCode" ColumnName="AnuncioCode" />
+                <ScalarProperty Name="EmpresaId" ColumnName="EmpresaId" />
+                <ScalarProperty Name="Frase1" ColumnName="Frase1" />
+                <ScalarProperty Name="Frase2" ColumnName="Frase2" />
+                <ScalarProperty Name="ViewsAnuncio" ColumnName="ViewsAnuncio" />
+                <ScalarProperty Name="ViewsPagina" ColumnName="ViewsPagina" />
+                <ScalarProperty Name="Ativo" ColumnName="Ativo" />
+                <ScalarProperty Name="CriadoEm" ColumnName="CriadoEm" />
+                <ScalarProperty Name="AtualizadoEm" ColumnName="AtualizadoEm" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Categorias">
+            <EntityTypeMapping TypeName="Blath3Model.Categoria">
+              <MappingFragment StoreEntitySet="Categoria">
+                <ScalarProperty Name="NomeLink" ColumnName="NomeLink" />
+                <ScalarProperty Name="CategoriaId" ColumnName="CategoriaId" />
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+                <ScalarProperty Name="Descricao" ColumnName="Descricao" />
+                <ScalarProperty Name="Tags" ColumnName="Tags" />
+                <ScalarProperty Name="Ativo" ColumnName="Ativo" />
+                <ScalarProperty Name="CriadoEm" ColumnName="CriadoEm" />
+                <ScalarProperty Name="AtualizadoEm" ColumnName="AtualizadoEm" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CatSubs">
+            <EntityTypeMapping TypeName="Blath3Model.CatSub">
+              <MappingFragment StoreEntitySet="CatSub">
+                <ScalarProperty Name="CatSubId" ColumnName="CatSubId" />
+                <ScalarProperty Name="CategoriaId" ColumnName="CategoriaId" />
+                <ScalarProperty Name="SubcategoriaId" ColumnName="SubcategoriaId" />
+                <ScalarProperty Name="Tema" ColumnName="Tema" />
+                <ScalarProperty Name="CriadoEm" ColumnName="CriadoEm" />
+                <ScalarProperty Name="AtualizadoEm" ColumnName="AtualizadoEm" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Empresas">
+            <EntityTypeMapping TypeName="Blath3Model.Empresa">
+              <MappingFragment StoreEntitySet="Empresa">
+                <ScalarProperty Name="Complemento" ColumnName="Complemento" />
+                <ScalarProperty Name="LogrNumero" ColumnName="LogrNumero" />
+                <ScalarProperty Name="Logradouro" ColumnName="Logradouro" />
+                <ScalarProperty Name="EmpresaId" ColumnName="EmpresaId" />
+                <ScalarProperty Name="EmpresaCode" ColumnName="EmpresaCode" />
+                <ScalarProperty Name="UsuarioId" ColumnName="UsuarioId" />
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+                <ScalarProperty Name="RazaoSocial" ColumnName="RazaoSocial" />
+                <ScalarProperty Name="CNPJ" ColumnName="CNPJ" />
+                <ScalarProperty Name="UF" ColumnName="UF" />
+                <ScalarProperty Name="Cidade" ColumnName="Cidade" />
+                <ScalarProperty Name="Bairro" ColumnName="Bairro" />
+                <ScalarProperty Name="CEP" ColumnName="CEP" />
+                <ScalarProperty Name="Telefone1" ColumnName="Telefone1" />
+                <ScalarProperty Name="Telefone2" ColumnName="Telefone2" />
+                <ScalarProperty Name="Whatsapp" ColumnName="Whatsapp" />
+                <ScalarProperty Name="Site" ColumnName="Site" />
+                <ScalarProperty Name="Dominio" ColumnName="Dominio" />
+                <ScalarProperty Name="AreaAtuacaoUF" ColumnName="AreaAtuacaoUF" />
+                <ScalarProperty Name="AreaAtuacaoCidade" ColumnName="AreaAtuacaoCidade" />
+                <ScalarProperty Name="AnuncioId" ColumnName="AnuncioId" />
+                <ScalarProperty Name="Descricao" ColumnName="Descricao" />
+                <ScalarProperty Name="Ativo" ColumnName="Ativo" />
+                <ScalarProperty Name="CriadoEm" ColumnName="CriadoEm" />
+                <ScalarProperty Name="AtualizadoEm" ColumnName="AtualizadoEm" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EmpSubs">
+            <EntityTypeMapping TypeName="Blath3Model.EmpSub">
+              <MappingFragment StoreEntitySet="EmpSub">
+                <ScalarProperty Name="EmpSubId" ColumnName="EmpSubId" />
+                <ScalarProperty Name="EmpresaId" ColumnName="EmpresaId" />
+                <ScalarProperty Name="SubcategoriaId" ColumnName="SubcategoriaId" />
+                <ScalarProperty Name="CriadoEm" ColumnName="CriadoEm" />
+                <ScalarProperty Name="AtualizadoEm" ColumnName="AtualizadoEm" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PedEmps">
+            <EntityTypeMapping TypeName="Blath3Model.PedEmp">
+              <MappingFragment StoreEntitySet="PedEmp">
+                <ScalarProperty Name="PedEmpId" ColumnName="PedEmpId" />
+                <ScalarProperty Name="PedidoId" ColumnName="PedidoId" />
+                <ScalarProperty Name="EmpresaId" ColumnName="EmpresaId" />
+                <ScalarProperty Name="CriadoEm" ColumnName="CriadoEm" />
+                <ScalarProperty Name="AtualizadoEm" ColumnName="AtualizadoEm" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PedEmpChats">
+            <EntityTypeMapping TypeName="Blath3Model.PedEmpChat">
+              <MappingFragment StoreEntitySet="PedEmpChat">
+                <ScalarProperty Name="PedEmpChatId" ColumnName="PedEmpChatId" />
+                <ScalarProperty Name="PedEmpId" ColumnName="PedEmpId" />
+                <ScalarProperty Name="Emissor" ColumnName="Emissor" />
+                <ScalarProperty Name="CriadoEm" ColumnName="CriadoEm" />
+                <ScalarProperty Name="AtualizadoEm" ColumnName="AtualizadoEm" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Pedidoes">
+            <EntityTypeMapping TypeName="Blath3Model.Pedido">
+              <MappingFragment StoreEntitySet="Pedido">
+                <ScalarProperty Name="PedidoId" ColumnName="PedidoId" />
+                <ScalarProperty Name="PedidoCode" ColumnName="PedidoCode" />
+                <ScalarProperty Name="UsuarioId" ColumnName="UsuarioId" />
+                <ScalarProperty Name="SubcategoriaId" ColumnName="SubcategoriaId" />
+                <ScalarProperty Name="Descricao" ColumnName="Descricao" />
+                <ScalarProperty Name="Periodo" ColumnName="Periodo" />
+                <ScalarProperty Name="Local" ColumnName="Local" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Ativo" ColumnName="Ativo" />
+                <ScalarProperty Name="CriadoEm" ColumnName="CriadoEm" />
+                <ScalarProperty Name="AtualizadoEm" ColumnName="AtualizadoEm" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Subcategorias">
+            <EntityTypeMapping TypeName="Blath3Model.Subcategoria">
+              <MappingFragment StoreEntitySet="Subcategoria">
+                <ScalarProperty Name="NomeLink" ColumnName="NomeLink" />
+                <ScalarProperty Name="SubcategoriaId" ColumnName="SubcategoriaId" />
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+                <ScalarProperty Name="Descricao" ColumnName="Descricao" />
+                <ScalarProperty Name="Tags" ColumnName="Tags" />
+                <ScalarProperty Name="Ativo" ColumnName="Ativo" />
+                <ScalarProperty Name="CriadoEm" ColumnName="CriadoEm" />
+                <ScalarProperty Name="AtualizadoEm" ColumnName="AtualizadoEm" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Usuarios">
+            <EntityTypeMapping TypeName="Blath3Model.Usuario">
+              <MappingFragment StoreEntitySet="Usuario">
+                <ScalarProperty Name="Complemento" ColumnName="Complemento" />
+                <ScalarProperty Name="LogrNumero" ColumnName="LogrNumero" />
+                <ScalarProperty Name="UsuarioId" ColumnName="UsuarioId" />
+                <ScalarProperty Name="UsuarioCode" ColumnName="UsuarioCode" />
+                <ScalarProperty Name="Nome" ColumnName="Nome" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="CPF" ColumnName="CPF" />
+                <ScalarProperty Name="Senha" ColumnName="Senha" />
+                <ScalarProperty Name="UF" ColumnName="UF" />
+                <ScalarProperty Name="Cidade" ColumnName="Cidade" />
+                <ScalarProperty Name="Bairro" ColumnName="Bairro" />
+                <ScalarProperty Name="Logradouro" ColumnName="Logradouro" />
+                <ScalarProperty Name="CEP" ColumnName="CEP" />
+                <ScalarProperty Name="Telefone" ColumnName="Telefone" />
+                <ScalarProperty Name="FacebookId" ColumnName="FacebookId" />
+                <ScalarProperty Name="Ativo" ColumnName="Ativo" />
+                <ScalarProperty Name="MktCode" ColumnName="MktCode" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="CriadoEm" ColumnName="CriadoEm" />
+                <ScalarProperty Name="AtualizadoEm" ColumnName="AtualizadoEm" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

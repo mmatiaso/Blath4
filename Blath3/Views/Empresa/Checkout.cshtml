@@ -1,0 +1,611 @@
+﻿
+@{
+    ViewBag.Title = "Checkout";
+    Layout = "~/Views/Shared/_Layout_LP.cshtml";
+}
+@section header{
+    <script type="text/javascript">
+
+        
+
+        $(document).ready(function () {
+
+            //init
+            GetUFs();
+            GetCidades("0");
+            //PlanoSel(getUrlParameter('plano'));
+
+            //precos
+            var prCidade = 25;
+            var prEstado = 30;
+            var prBrasil = 35;
+            
+            $("#valorCidade").text("R$ " + prCidade);
+            $("#valorEstado").text("R$ " + prEstado);
+            $("#valorBrasil").text("R$ " + prBrasil);
+
+            atualizaTotal();
+
+            $("#bot_maiscat1").click(function () {
+                $("#CatB").show();
+                $(this).hide();
+            })
+            $("#bot_menoscat2").click(function () {
+                $("#CatB").hide();
+                $("#bot_maiscat1").show();
+            })
+            $("#bot_maiscat2").click(function () {
+                $("#CatC").show();
+                $("#bot_maiscat2").hide();
+                $("#bot_menoscat2").hide();
+            })
+            $("#bot_menoscat3").click(function () {
+                $("#CatC").hide();
+                $("#bot_maiscat2").show();
+                $("#bot_menoscat2").show();
+            })
+
+            $("#nomeEmpresa").keyup(function () {
+                atualizaAnuncio();
+            })
+            $("#textoAnuncio1").keyup(function () {
+                atualizaAnuncio();
+            })
+            $("#textoAnuncio2").keyup(function () {
+                atualizaAnuncio();
+            })
+
+            $("#empresaCEP").focusout(function () {     
+                var rCep = $("#empresaCEP").val();
+                GetEndereco(rCep);
+            })
+
+            $("#areaAtuacaoUF").change(function () {
+                var rUF = $("#areaAtuacaoUF").val();
+                GetCidades(rUF);
+            })
+
+            $("input:radio[name='optPlano']").change(function () {
+                atualizaTotal();
+            })
+
+            //
+
+            //Get Endereco
+            function GetEndereco(cep) {
+                var urlReq = "https://viacep.com.br/ws/" + cep + "/json/";
+                
+                var jqxhr = $.get(urlReq, function () {
+                    
+                })
+                    .done(function (data) {
+                        $("#empresaLogradouro").val(data.logradouro);
+                        $("#empresaBairro").val(data.bairro);
+                        $("#empresaCidade").val(data.localidade);
+                        $("#empresaUF").val(data.uf);
+                    })
+                    .fail(function () {
+                        alert("O CEP informado não existe.");
+                        $("#empresaLogradouro").val("");
+                        $("#empresaBairro").val("");
+                        $("#empresaCidade").val("");
+                        $("#empresaUF").val("");
+                    })
+                    .always(function () {
+                        
+                    }); 
+            }
+
+            
+            //GetUFs
+            function GetUFs() {
+                var urlReq = "https://servicodados.ibge.gov.br/api/v1/localidades/estados";
+                var ahtml = "<option value='0'>BR</option>";
+
+                var jqxhr = $.get(urlReq, function () {
+
+                })
+                    .done(function (data) {
+                        //sort
+                        var byUf = data.slice(0);
+                        byUf.sort(function (a, b) {
+                            var x = a.sigla;
+                            var y = b.sigla;
+                            return x < y ? -1 : x > y ? 1 : 0;
+                        });
+                        //preenchendo o select
+                        
+                        for (i = 0; i < byUf.length; i++) {
+                            //console.log(data[i].sigla);          
+                            ahtml += "<option value=" + byUf[i].id + ">" + byUf[i].sigla + "</option>";    
+                        }
+                        $("#areaAtuacaoUF").append(ahtml);
+                    })
+                    .fail(function () {
+                        //alert("O CEP informado não existe.");
+                        
+                    })
+                    .always(function () {
+
+                    }); 
+            }
+
+            
+            //Get Cidades
+            function GetCidades(cidId) {
+                var urlReq = "http://servicodados.ibge.gov.br/api/v1/localidades/estados/" + cidId + "/municipios";
+                var ahtml = "";
+                //$("#areaAtuacaoCidade").val("");
+                $('#areaAtuacaoCidade').children('option').remove();
+                if (cidId == "0") {
+                    ahtml = "<option value='0'>Todo o Brasil</option>";
+                    $("#areaAtuacaoCidade").append(ahtml);
+                }
+                else {
+                    ahtml = "<option value='0'>Todo o Estado</option>";
+                    var jqxhr = $.get(urlReq, function () {
+
+                    })
+                        .done(function (data) {
+                            //sort
+                            var byCid = data.slice(0);
+                            byCid.sort(function (a, b) {
+                                var x = a.nome;
+                                var y = b.nome;
+                                return x < y ? -1 : x > y ? 1 : 0;
+                            });
+                            //preenchendo o select
+
+                            for (i = 0; i < byCid.length; i++) {
+                                //console.log(data[i].sigla);          
+                                //ahtml += "<option value=" + byCid[i].id + ">" + byCid[i].nome + "</option>";
+                                ahtml += "<option>" + byCid[i].nome + "</option>";
+                            }
+                            $("#areaAtuacaoCidade").append(ahtml);
+                        })
+                        .fail(function () {
+                            //alert("O CEP informado não existe.");
+
+                        })
+                        .always(function () {
+
+                        }); 
+                }
+
+                
+            }
+
+            function PlanoSel(plano) {
+                switch (plano) {
+                    case "CIDADE":
+                        $("#optPlCidade").attr("checked", "checked");
+                        break;
+                    case "ESTADO":
+                        $("#optPlEstado").attr("checked", "checked");
+                        break;
+                    case "BRASIL":
+                        $("#optPlBrasil").attr("checked", "checked");
+                        break;
+                    default:
+                        //("#optPlCidade").attr("checked", "checked");
+                        
+                }
+            }
+
+            //anuncio
+            function atualizaAnuncio() {
+                var nomeEmp = $("#nomeEmpresa").val();
+                if ($("#nomeEmpresa").val() == "") {
+                    nomeEmp = "Nome da Empresa";
+                }
+
+                var textoAn1 = $("#textoAnuncio1").val();
+                if ($("#textoAnuncio1").val() == "") {
+                    textoAn1 = "Frase principal (max. 60 chrs - Visível no desktop e celular)";
+                }
+
+                var textoAn2 = $("#textoAnuncio2").val();
+                if ($("#textoAnuncio2").val() == "") {
+                    textoAn2 = "Frase secundária (max. 60 chrs - Visível no desktop e celular)";
+                }
+                $("#AnomeEmpresa").text(nomeEmp);
+                $("#atexto1").text(textoAn1);
+                $("#atexto2").text(textoAn2);
+            }
+
+            function atualizaTotal() {
+                var _check = $("input:radio[name='optPlano']:checked").val();
+                console.log(_check);
+                var _total = 0;
+                switch (_check) {
+                    case "CIDADE":
+                        _total = prCidade;
+                        break;
+                    case "ESTADO":
+                        _total = prEstado;
+                        break;
+                    case "BRASIL":
+                        _total = prBrasil;
+                        break;
+                    default:
+                        _total = prCidade;
+                }
+                $("#descontoValor").text("R$ -" + _total);
+            }
+
+            
+        });
+    </script>
+}
+
+
+<div class="container">
+    <h2 class="mt-2">Aproveite, são 3 meses gratuitos</h2>
+    <p>Em menos de cinco minutos, você preenche os campos abaixo. Assim que enviar seus dados, enviaremos um email para ativação do seu anúncio.</p>
+    <hr />
+    <div id="DivCheckoutForm">
+        <div class="row">
+            <div class="col-md-4 order-md-2 mb-4">
+                <h4 class="d-flex justify-content-between align-items-center mb-3">
+                    <span class="text-muted">Escolha seu Plano</span>
+                    @*<span class="badge badge-secondary badge-pill">3</span>*@
+                </h4>
+                <ul class="list-group mb-3">
+                    <li class="list-group-item d-flex justify-content-between lh-condensed">
+                        <div>
+                            <input type="radio" class="" name="optPlano" value="CIDADE" id="optPlCidade" checked="checked" />
+                            <span class="my-0 h6">Plano CIDADE</span><br/>
+                            <small class="text-muted">Alcance do anúncio na cidade informada.</small>
+                        </div>
+                        <span id="valorCidade" class="text-muted"></span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between lh-condensed">
+                        <div>
+                            <input type="radio" class="" name="optPlano" value="ESTADO" id="optPlEstado" />
+                            <span class="my-0 h6">Plano ESTADO</span><br />
+                            <small class="text-muted">Alcance do anúncio no estado informado.</small>
+                        </div>
+                        <span id="valorEstado" class="text-muted"></span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between lh-condensed">
+                        <div>
+                            <input type="radio" class="" name="optPlano" value="BRASIL" id="optPlBrasil" />
+                            <span class="my-0 h6">Plano BRASIL</span><br />
+                            <small class="text-muted">Alcance do anúncio em todo o país.</small>
+                        </div>
+                        <span id="valorBrasil" class="text-muted"></span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between bg-light">
+                        <div class="text-success">
+                            <h6 class="my-0">Promoção</h6>
+                            <small>Experimento 3 Meses</small>
+                        </div>
+                        <span id="descontoValor" class="text-success"></span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between">
+                        <span>Total</span>
+                        <strong>R$ 0,00</strong>
+                    </li>
+                </ul>
+
+                @*<form class="card p-2">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Promo code">
+                        <div class="input-group-append">
+                            <button type="submit" class="btn btn-secondary">Redeem</button>
+                        </div>
+                    </div>
+                </form>*@
+            </div>
+            <div class="col-md-8 order-md-1">
+
+                <form class="needs-validation" action="">
+
+                    <section id="SecAnuncio">
+                        <h4 class="mb-3">Anúncio e Página no Blath!</h4>
+
+                        <h6 class="mb-2">Visualização do Anúncio</h6>
+                        <!-- Anuncio  -->
+                        <div class="reg mr-md-2 p-md-3 p-sm-2 mb-4">
+                            <div class="row">
+                                <div class="col-md-2 col-4 pl-2 pr-0">
+                                    <div class="">
+                                        <div class="imgCard"><img src="~/Content/img/cadastro/icon-user.png" alt="" class="imgCard rounded"></div>
+                                    </div>
+                                </div>
+                                <div class="col-md-10 col-8 pl-md-3 pl-2">
+
+                                    <div class="subtitulo">
+                                        <a href="/empresa/detalhe" id="AnomeEmpresa">Nome da Empresa</a>
+                                    </div>
+                                    <div class="">
+                                        <span class="badge badge-success teaser"> - </span>
+                                        <span class="teaser f-verde"><strong>Sem avalição</strong> (0 opiniões)</span>
+                                    </div>
+                                    <div class="f-verde">
+                                        <div id="atexto1" class="teaser">Frase principal (max. 60 caracteres)</div>
+                                        <div id="atexto2" class="teaser desktop">Frase secundária (max. 60 caracteres)</div>
+                                    </div>
+                                    <div class="mt-0">
+
+                                        <span class="badge badge-success f7r ctaorc">Pedir Orçamento</span>
+
+                                        <span class="f7r f-verde font-weight-bold desktop">| Categoria</span>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-5 mb-3">
+                                <label for="empresaCategoriaA">Categoria</label>
+                                <select class="custom-select d-block w-100" id="empresaCategoriaA" required="">
+                                    <option value="">Selecione</option>
+                                    <option>Casa e Reformas</option>
+                                </select>
+
+                            </div>
+                            <div class="col-md-5 mb-3">
+                                <label for="empresaSubCategoriaA">Sub Categoria</label>
+                                <select class="custom-select d-block w-100" id="empresaSubCategoriaA" required="">
+                                    <option value="">Selecione</option>
+                                    <option>Arquiteto</option>
+                                    <option>Eletricista</option>
+                                </select>
+
+                            </div>
+                            <div class="col-md-2 mb-3">
+                                <label class="desktop">&nbsp;</label><br class="desktop" />
+                                <button type="button" class="btn btn-info" id="bot_maiscat1">+</button>
+                            </div>
+                        </div>
+
+                        <div class="row" id="CatB" style="display:none;">
+                            <div class="col-md-5 mb-3">
+                                <label for="empresaCategoriaA">Categoria 2</label>
+                                <select class="custom-select d-block w-100" id="empresaCategoriaB" required="">
+                                    <option value="">Selecione</option>
+                                    <option>Casa e Reformas</option>
+                                </select>
+
+                            </div>
+                            <div class="col-md-5 mb-3">
+                                <label for="empresaSubCategoriaA">Sub Categoria 2</label>
+                                <select class="custom-select d-block w-100" id="empresaSubCategoriaB" required="">
+                                    <option value="">Selecione</option>
+                                    <option>Arquiteto</option>
+                                    <option>Eletricista</option>
+                                </select>
+
+                            </div>
+                            <div class="col-md-2 mb-3">
+                                <label>&nbsp;</label><br />
+                                <button type="button" id="bot_maiscat2" class="btn btn-info">+</button> <button type="button" class="btn btn-info" id="bot_menoscat2"> - </button>
+                            </div>
+                        </div>
+
+                        <div class="row" id="CatC" style="display:none;">
+                            <div class="col-md-5 mb-3">
+                                <label for="empresaCategoriaC">Categoria 3</label>
+                                <select class="custom-select d-block w-100" id="empresaCategoriaC" required="">
+                                    <option value="">Selecione</option>
+                                    <option>Casa e Reformas</option>
+                                </select>
+
+                            </div>
+                            <div class="col-md-5 mb-3">
+                                <label for="empresaSubCategoriaC">Sub Categoria 3</label>
+                                <select class="custom-select d-block w-100" id="empresaSubCategoriaC" required="">
+                                    <option value="">Selecione</option>
+                                    <option>Arquiteto</option>
+                                    <option>Eletricista</option>
+                                </select>
+
+                            </div>
+                            <div class="col-md-2 mb-3">
+                                <label>&nbsp;</label><br />
+                                <button type="button" class="btn btn-info" id="bot_menoscat3"> - </button>
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+
+                            <div class="col-md-5 mb-3">
+                                <label>Foto <i class="f9r">(Dimensão: 300px x 300px)</i></label>
+                                <input type="file" name="foto" id="file" class="inputfile" />
+                                <label for="file"><i class="fa fa-upload"></i> Enviar Foto</label>
+
+                            </div>
+                            <div class="col-md-7 mb-3">
+                                <label for="">Área de atuação</label>
+                                <div class="row">
+                                    <div class="col-3 mb-3">
+                                        <select class="custom-select d-block w-100" id="areaAtuacaoUF" required=""></select>
+                                    </div>
+                                    <div class="col-9">
+                                        <select class="custom-select d-block w-100" id="areaAtuacaoCidade" required="">
+                                            <option value="0">Todo o Brasil</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12 mb-3">
+                                <label for="textoAnuncio1">Frase principal (max. 60 chrs - Visível no desktop e celular)</label>
+                                <input type="text" class="form-control" id="textoAnuncio1" maxlength="60" placeholder="Esse texto será visível no desktop e no celular." value="" required="required">
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12 mb-3">
+                                <label for="textoAnuncio2">Frase secundária (max. 60 chrs - Visível apenas no desktop)</label>
+                                <input type="text" class="form-control" id="textoAnuncio2" maxlength="60" placeholder="Esse texto será visível apenas no desktop." value="" required="required">
+                            </div>
+                        </div>
+
+
+                    </section>
+
+                    <hr class="mb-4">
+
+                    <h4 class="mb-3">Dados Pessoais</h4>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="firstName">Nome</label>
+                            <input type="text" class="form-control" id="nome" placeholder="" value="" required="required">
+
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="lastName">Sobrenome</label>
+                            <input type="text" class="form-control" id="sobrenome" placeholder="" value="" required="required">
+
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="firstName">CPF</label>
+                            <input type="tel" class="form-control" id="cpf" placeholder="" value="" required="required" pattern="[0-9]+$">
+
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="lastName">Email</label>
+                            <input type="email" class="form-control" id="email" placeholder="" value="" required="required">
+
+                        </div>
+                    </div>
+
+                    <hr class="mb-4">
+                    <h4 class="mb-3">Dados da Empresa</h4>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="empresaNome">Nome da Empresa ou Negócio</label>
+                            <input type="text" class="form-control" id="nomeEmpresa" placeholder="" value="" required="required" pattern="[0-9]+$">
+
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="emailEmpresa">Email de Contato da Empresa</label>
+                            <input type="email" class="form-control" id="emailEmpresa" placeholder="" value="" required="required">
+
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            <label for="telPrincipal">Telefone Principal</label>
+                            <input type="tel" class="form-control" id="telPrincipal" placeholder="" value="" required="required" pattern="\([0-9]{2}\) [0-9]{4,6}-[0-9]{3,4}$">
+
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label for="telWhatsapp">Whatsapp (opcional)</label>
+                            <input type="tel" class="form-control" id="telWhatsapp" placeholder="" value="" required="required" pattern="\([0-9]{2}\) [0-9]{4,6}-[0-9]{3,4}$">
+
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label for="teloutro">Outro telefone</label>
+                            <input type="tel" class="form-control" id="teloutro" placeholder="" value="" required="required" pattern="\([0-9]{2}\) [0-9]{4,6}-[0-9]{3,4}$">
+
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            <label for="empresaCEP">CEP</label>
+                            <input type="text" class="form-control" id="empresaCEP" placeholder="CEP" value="" required="required" pattern="[0-9]+$">
+
+                        </div>
+                        <div class="col-md-8 mb-3">
+                            <div class="row">
+                                <div class="col-md-7">
+                                    <label for="empresaLogradouro">Endereço</label>
+                                    <input type="text" class="form-control" id="empresaLogradouro" placeholder="Logradouro" disabled="disabled" value="" required="required">
+                                </div>
+                                <div class="col-md-2">
+                                    <label for="empresaNumero">Número</label>
+                                    <input type="text" class="form-control" id="empresaNumero" placeholder="Nº" value="" required="required">
+                                </div>
+                                <div class="col-md-3">
+                                    <label for="empresaComplemento">Complemento</label>
+                                    <input type="text" class="form-control" id="empresaComplemento" placeholder="" value="" required="required">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            <label for="empresaBairro">Bairro</label>
+                            <input type="text" class="form-control" id="empresaBairro" placeholder="Bairro" value="" disabled="disabled" required="required" pattern="[0-9]+$">
+
+                        </div>
+                        <div class="col-md-8 mb-3">
+                            <div class="row">
+                                <div class="col-md-10">
+                                    <label for="empresaCidade">Cidade</label>
+                                    <input type="text" class="form-control" id="empresaCidade" placeholder="Cidade" disabled="disabled" value="" required="required">
+                                </div>
+                                <div class="col-md-2">
+                                    <label for="empresaUF">UF</label>
+                                    <input type="text" class="form-control" id="empresaUF" placeholder="UF" disabled="disabled" value="" required="required">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr class="mb-4">
+
+
+
+                    
+
+                    @*<h4 class="mb-3">Payment</h4>
+
+
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label for="cc-name">Name on card</label>
+                <input type="text" class="form-control" id="cc-name" placeholder="" required="">
+                <small class="text-muted">Full name as displayed on card</small>
+                <div class="invalid-feedback">
+                    Name on card is required
+                </div>
+            </div>
+            <div class="col-md-6 mb-3">
+                <label for="cc-number">Credit card number</label>
+                <input type="text" class="form-control" id="cc-number" placeholder="" required="">
+                <div class="invalid-feedback">
+                    Credit card number is required
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3 mb-3">
+                <label for="cc-expiration">Expiration</label>
+                <input type="text" class="form-control" id="cc-expiration" placeholder="" required="">
+                <div class="invalid-feedback">
+                    Expiration date required
+                </div>
+            </div>
+            <div class="col-md-3 mb-3">
+                <label for="cc-cvv">CVV</label>
+                <input type="text" class="form-control" id="cc-cvv" placeholder="" required="">
+                <div class="invalid-feedback">
+                    Security code required
+                </div>
+            </div>
+        </div>*@
+
+                    <button class="btn btn-primary btn-lg btn-block mb-4" type="submit">Enviar Dados</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+

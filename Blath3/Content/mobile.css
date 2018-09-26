@@ -1,0 +1,99 @@
+﻿/*------mobile ----------*/
+
+
+
+@media (max-width: 768px) {
+    body{
+        font-size:1.0rem;
+    }
+    .container {
+        /*margin-left: initial;*/
+    }
+
+    .desktop {
+        display: none;
+    }
+
+    .mobile {
+        display: block;
+    }
+
+    .full-container {
+        padding: 3.0rem 0.5rem !important;
+        background-color: #e9ecef;
+        margin-bottom: 2rem;
+    }
+
+    .widget-1 {
+        padding: 2.0rem 0.5rem !important;
+        margin-bottom: 2rem;
+    }
+
+    .widget-1 p{
+        font-size:1.2rem;
+        padding-bottom:1.0rem;
+        border-bottom:1px solid #ccc;
+    }
+
+    .price-area {
+        padding: 2.0rem 0.5rem !important;
+        margin-bottom: 2rem;
+    }
+        #logo {
+        width: 90%;
+    }
+
+    .nav-tabs .nav-item {
+        font-size: 0.8rem;
+    }
+
+    #View-Empresa .Titulo h2 {
+        font-size: 1.0rem;
+        margin-bottom: 0px;
+    }
+
+    .reg{
+        padding:0.4rem 0.7rem;
+    }
+
+    .teaser {
+        font-size: 0.8rem;
+        /*font-weight:bold;*/
+    }
+
+    .form-line input, .form-line textarea, .form-line button {
+        width: 100%;
+    }
+
+    .nota{
+        padding:0px !important;
+        font-size:18px;
+    }
+
+    .img-box {
+        height: 81px;
+    }
+
+    .imgCard {
+        width: 105px;
+        height: 105px;
+    }
+
+    .noimgCard {
+        width: 100px;
+        height: 100px;
+    }
+
+    .subtitulo {
+        font-size: 1.0rem;
+    }
+
+    .mw-100{
+        width:100% !important;
+    }
+
+    /* IDs  */
+    #tituloCat {
+        font-size:1.5rem;
+    }
+}

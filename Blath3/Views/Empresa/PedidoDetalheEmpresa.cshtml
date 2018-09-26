@@ -1,0 +1,127 @@
+﻿
+@{
+    ViewBag.Title = "PedidoDetalheEmpresa";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section header{
+    <script>
+        $(function () {
+            $('#txtCotacao').mask("#.##0,00", { reverse: true });
+        })
+    </script>
+    }
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 my-3">
+            <div class="box3 bg-cinza p-2 f9r"><a href="/"><strong>Página inicial</strong></a> &raquo; <a href="/"><strong>Área da Empresa</strong></a> &raquo; <a href="/"><strong>Pedidos</strong></a> &raquo; Pedido #1009</div>
+            
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-5 mb-3">
+
+            <div class="card">
+                <div class="card-header font-weight-bold bg-cinza">
+                    14/10/2018 12:00 - Pedido Nº9001
+                </div>
+                
+                <div class="card-body">
+                    
+                    <div class="row">
+
+                        <div class="col-auto">
+                            <div class=""><img src="https://via.placeholder.com/80x80" alt="" class="rounded" /></div>
+                        </div>
+
+                        <div class="col pl-0">
+                            <h5>Aloísio Nakiara</h5>
+                            <p>
+                                <strong>Descrição</strong><br />
+                                Existem muitas variações disponíveis de passagens de Lorem Ipsum, mas a maioria sofreu algum tipo de alteração, seja por inserção de passagens com humor, ou palavras aleatórias que não parecem nem um pouco convincentes.
+                            </p>
+                            <p>
+                                <strong>Período desejado</strong><br />
+                                Hoje (Urgente)
+                            </p>
+                            <p>
+                                <strong>Onde</strong><br />
+                                Botafogo - Rio de Janeiro - RJ
+                            </p>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="col-md-7 mb-3">
+            <div class="card">
+                <div class="card-header font-weight-bold bg-azul">
+                    Responda a este pedido
+                </div>
+                <div class="card-body">
+                    <form id="formA" action="" method="post">
+                        <div class="row mb-3">
+                            <div class="col-10">
+                                <div class="text-left box3 bg-azul p-2">
+                                    <p>
+                                        <strong>Sua Empresa - 14/08/2018 15:30</strong><br />
+                                        Existem muitas variações disponíveis de passagens de Lorem Ipsum, mas a maioria sofreu algum tipo de alteração, seja por inserção de passagens com humor, ou palavras aleatórias que não parecem nem um pouco convincentes.
+                                    </p>
+                                </div>
+
+                            </div>
+                            <div class="col-2">
+                                &nbsp;
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-2">
+                                &nbsp;
+                            </div>
+                            <div class="col-10">
+                                <div class="text-left box3 bg-cinza p-2">
+                                    <p>
+                                        <strong>Aloísio - 14/08/2018 15:30</strong><br />
+                                        Existem muitas variações disponíveis de passagens de Lorem Ipsum, mas a maioria sofreu algum tipo de alteração, seja por inserção de passagens com humor, ou palavras aleatórias que não parecem nem um pouco convincentes.
+                                    </p>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <hr class="mb-1" />
+
+                        <div class="row mb-3">
+                            <div class="col-md-12">
+                                <label for="resposta">Resposta</label>
+                                <textarea class="form-control" id="txtResposta" name="txtResposta" rows="3"></textarea>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-4">
+                                <label for="txtCotacao">Cotação aprox. (R$)</label>
+                                <i class="fa fa-question-circle pointer" aria-hidden="true" data-container="body" data-toggle="popover" data-placement="top" data-content="Apenas envie sua cotação quando tiver tirado todas as suas dúvidas."></i>
+
+                                <input type="text" class="form-control f14r" id="txtCotacao" name="txtCotacao" placeholder="" />
+                            </div>
+                            <div class="col-md-8">
+                                <label for="">&nbsp; </label><br />
+                                <button type="submit" class="btn btn-primary w-100">Enviar Mensagem</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
