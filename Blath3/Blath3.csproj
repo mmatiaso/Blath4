@@ -187,6 +187,7 @@
     <Compile Include="Controllers\EmpresaController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
+    <Compile Include="Controllers\WebAPI\ApiGenericoController.cs" />
     <Compile Include="Controllers\WebAPI\ApiSubcategoriaController.cs" />
     <Compile Include="Controllers\WebAPI\ApiUsuarioController.cs" />
     <Compile Include="Controllers\WebAPI\CategoriaController.cs" />

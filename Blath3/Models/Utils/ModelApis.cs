@@ -20,17 +20,17 @@ namespace Blath3.Models.Utils
     {
 
         private Blath3Entities db = new Blath3Entities();
-        public Retorno r = new Retorno();
-        public Generico g = new Generico();
+        
 
 
-        public List<string> BuscaResulta { get; set; }
-        //public string Link { get; set; }
+        public string Nome { get; set; }
+        public string Link { get; set; }
 
-        public BuscaApi RetornaBusca(string word)
+        public List<BuscaApi> RetornaBusca(string word)
         {
-            string lurl = "";
-            BuscaApi b = new BuscaApi();
+            
+            List<BuscaApi> Lb = new List<BuscaApi>();
+            
 
             if (string.IsNullOrEmpty(word))
             {
@@ -38,21 +38,36 @@ namespace Blath3.Models.Utils
             }
             else
             {
+                //categorias
                 var cats = db.Categorias.Where(x => x.Nome.Contains(word) || x.Tags.Contains(word) || x.Descricao.Contains(word));
                 if(cats.Count() > 0)
                 {
                     foreach (Categoria c in cats)
                     {
-                        lurl = "<a href='/" + c.NomeLink + "'>" + c.Nome + "</a>";
-                        b.BuscaResulta.Add(lurl);
-
+                        BuscaApi b = new BuscaApi();
+                        b.Nome = c.Nome;
+                        b.Link = "/" + c.NomeLink;
+                        Lb.Add(b);
                     }
                 }
-                
-                
+
+                //subcategorias
+                var subcats = db.Subcategorias.Where(x => x.Nome.Contains(word) || x.Tags.Contains(word) || x.Descricao.Contains(word));
+                if (subcats.Count() > 0)
+                {
+                    foreach (Subcategoria s in subcats)
+                    {
+                        BuscaApi b = new BuscaApi();
+                        b.Nome = s.Nome;
+                        b.Link = "/s/" + s.NomeLink;
+                        Lb.Add(b);
+                    }
+                }
+
+
             }
 
-            return b;
+            return Lb;
         }
     }
 
