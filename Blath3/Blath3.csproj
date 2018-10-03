@@ -187,6 +187,8 @@
     <Compile Include="Controllers\EmpresaController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
+    <Compile Include="Controllers\WebAPI\ApiAnuncioController.cs" />
+    <Compile Include="Controllers\WebAPI\ApiEmpresaController.cs" />
     <Compile Include="Controllers\WebAPI\ApiGenericoController.cs" />
     <Compile Include="Controllers\WebAPI\ApiSubcategoriaController.cs" />
     <Compile Include="Controllers\WebAPI\ApiUsuarioController.cs" />
@@ -195,6 +197,9 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Anuncio.cs">
+      <DependentUpon>blathm3.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Avaliacao.cs">
       <DependentUpon>blathm3.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\blathm3.Context.cs">
@@ -218,7 +223,9 @@
     <Compile Include="Models\CatSub.cs">
       <DependentUpon>blathm3.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Core\CoreAnuncio.cs" />
     <Compile Include="Models\Core\CoreCategoria.cs" />
+    <Compile Include="Models\Core\CoreEmpresa.cs" />
     <Compile Include="Models\Core\CoreSubcategoria.cs" />
     <Compile Include="Models\Core\CoreUsuario.cs" />
     <Compile Include="Models\Empresa.cs">

@@ -26,6 +26,10 @@
         <AssociationConnector Association="Blath3Model.FK_PedidoEmp_Pedido" ManuallyRouted="false" />
         <AssociationConnector Association="Blath3Model.FK_Pedido_Subcategoria" ManuallyRouted="false" />
         <AssociationConnector Association="Blath3Model.FK_Pedido_Usuario" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="Blath3Model.Avaliacao" Width="1.5" PointX="10.5" PointY="6.125" />
+        <AssociationConnector Association="Blath3Model.FK_Avaliacao_Empresa" />
+        <AssociationConnector Association="Blath3Model.FK_Avaliacao_PedEmp" />
+        <AssociationConnector Association="Blath3Model.FK_Avaliacao_Usuario" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

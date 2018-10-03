@@ -19,6 +19,7 @@ namespace Blath3.Models
         {
             this.Empresas = new HashSet<Empresa>();
             this.Pedidoes = new HashSet<Pedido>();
+            this.Avaliacaos = new HashSet<Avaliacao>();
         }
     
         public int UsuarioId { get; set; }
@@ -46,5 +47,7 @@ namespace Blath3.Models
         public virtual ICollection<Empresa> Empresas { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Pedido> Pedidoes { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Avaliacao> Avaliacaos { get; set; }
     }
 }

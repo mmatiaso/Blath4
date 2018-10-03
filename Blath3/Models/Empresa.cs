@@ -20,6 +20,7 @@ namespace Blath3.Models
             this.Anuncios = new HashSet<Anuncio>();
             this.EmpSubs = new HashSet<EmpSub>();
             this.PedEmps = new HashSet<PedEmp>();
+            this.Avaliacaos = new HashSet<Avaliacao>();
         }
     
         public int EmpresaId { get; set; }
@@ -39,7 +40,6 @@ namespace Blath3.Models
         public string Dominio { get; set; }
         public string AreaAtuacaoUF { get; set; }
         public string AreaAtuacaoCidade { get; set; }
-        public Nullable<int> AnuncioId { get; set; }
         public string Descricao { get; set; }
         public Nullable<bool> Ativo { get; set; }
         public Nullable<System.DateTime> CriadoEm { get; set; }
@@ -47,6 +47,8 @@ namespace Blath3.Models
         public string Logradouro { get; set; }
         public string LogrNumero { get; set; }
         public string Complemento { get; set; }
+        public string Email { get; set; }
+        public string Status { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Anuncio> Anuncios { get; set; }
@@ -55,5 +57,7 @@ namespace Blath3.Models
         public virtual ICollection<EmpSub> EmpSubs { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PedEmp> PedEmps { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Avaliacao> Avaliacaos { get; set; }
     }
 }

@@ -12,20 +12,21 @@ namespace Blath3.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Anuncio
+    public partial class Avaliacao
     {
-        public int AnuncioId { get; set; }
-        public System.Guid AnuncioCode { get; set; }
-        public Nullable<int> EmpresaId { get; set; }
-        public string Frase1 { get; set; }
-        public string Frase2 { get; set; }
-        public Nullable<int> ViewsAnuncio { get; set; }
-        public Nullable<int> ViewsPagina { get; set; }
+        public int AvaliacaoId { get; set; }
+        public int UsuarioId { get; set; }
+        public int EmpresaId { get; set; }
+        public Nullable<decimal> Nota { get; set; }
+        public string Descricao { get; set; }
+        public Nullable<bool> Aprovado { get; set; }
+        public Nullable<int> PedEmpId { get; set; }
         public Nullable<bool> Ativo { get; set; }
         public Nullable<System.DateTime> CriadoEm { get; set; }
         public Nullable<System.DateTime> AtualizadoEm { get; set; }
-        public string ImgUrl { get; set; }
     
         public virtual Empresa Empresa { get; set; }
+        public virtual PedEmp PedEmp { get; set; }
+        public virtual Usuario Usuario { get; set; }
     }
 }

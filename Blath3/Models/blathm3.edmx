@@ -14,8 +14,24 @@
           <Property Name="EmpresaId" Type="int" />
           <Property Name="Frase1" Type="varchar" MaxLength="100" />
           <Property Name="Frase2" Type="varchar" MaxLength="100" />
+          <Property Name="ImgUrl" Type="varchar" MaxLength="200" />
           <Property Name="ViewsAnuncio" Type="int" />
           <Property Name="ViewsPagina" Type="int" />
+          <Property Name="Ativo" Type="bit" />
+          <Property Name="CriadoEm" Type="datetime" />
+          <Property Name="AtualizadoEm" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Avaliacao">
+          <Key>
+            <PropertyRef Name="AvaliacaoId" />
+          </Key>
+          <Property Name="AvaliacaoId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UsuarioId" Type="int" Nullable="false" />
+          <Property Name="EmpresaId" Type="int" Nullable="false" />
+          <Property Name="Nota" Type="decimal" Precision="1" Scale="1" />
+          <Property Name="Descricao" Type="varchar" MaxLength="400" />
+          <Property Name="Aprovado" Type="bit" />
+          <Property Name="PedEmpId" Type="int" />
           <Property Name="Ativo" Type="bit" />
           <Property Name="CriadoEm" Type="datetime" />
           <Property Name="AtualizadoEm" Type="datetime" />
@@ -52,6 +68,7 @@
           <Property Name="EmpresaCode" Type="uniqueidentifier" Nullable="false" />
           <Property Name="UsuarioId" Type="int" />
           <Property Name="Nome" Type="varchar" MaxLength="200" />
+          <Property Name="Email" Type="varchar" MaxLength="256" />
           <Property Name="RazaoSocial" Type="varchar" MaxLength="100" />
           <Property Name="CNPJ" Type="varchar" MaxLength="20" />
           <Property Name="UF" Type="varchar" MaxLength="2" />
@@ -68,8 +85,8 @@
           <Property Name="Dominio" Type="varchar" MaxLength="100" />
           <Property Name="AreaAtuacaoUF" Type="varchar" MaxLength="2" />
           <Property Name="AreaAtuacaoCidade" Type="varchar" MaxLength="200" />
-          <Property Name="AnuncioId" Type="int" />
           <Property Name="Descricao" Type="varchar" MaxLength="800" />
+          <Property Name="Status" Type="varchar" MaxLength="20" />
           <Property Name="Ativo" Type="bit" />
           <Property Name="CriadoEm" Type="datetime" />
           <Property Name="AtualizadoEm" Type="datetime" />
@@ -91,6 +108,8 @@
           <Property Name="PedEmpId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="PedidoId" Type="int" />
           <Property Name="EmpresaId" Type="int" />
+          <Property Name="StatusResposta" Type="varchar" MaxLength="20" />
+          <Property Name="Cotacao" Type="decimal" Precision="18" Scale="2" />
           <Property Name="CriadoEm" Type="datetime" />
           <Property Name="AtualizadoEm" Type="datetime" />
         </EntityType>
@@ -101,6 +120,7 @@
           <Property Name="PedEmpChatId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="PedEmpId" Type="int" />
           <Property Name="Emissor" Type="varchar" MaxLength="15" />
+          <Property Name="Chat" Type="varchar" MaxLength="600" />
           <Property Name="CriadoEm" Type="datetime" />
           <Property Name="AtualizadoEm" Type="datetime" />
         </EntityType>
@@ -169,6 +189,46 @@
             </Principal>
             <Dependent Role="Anuncio">
               <PropertyRef Name="EmpresaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Avaliacao_Empresa">
+          <End Role="Empresa" Type="Self.Empresa" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Avaliacao" Type="Self.Avaliacao" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empresa">
+              <PropertyRef Name="EmpresaId" />
+            </Principal>
+            <Dependent Role="Avaliacao">
+              <PropertyRef Name="EmpresaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Avaliacao_PedEmp">
+          <End Role="PedEmp" Type="Self.PedEmp" Multiplicity="0..1" />
+          <End Role="Avaliacao" Type="Self.Avaliacao" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PedEmp">
+              <PropertyRef Name="PedEmpId" />
+            </Principal>
+            <Dependent Role="Avaliacao">
+              <PropertyRef Name="PedEmpId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Avaliacao_Usuario">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Avaliacao" Type="Self.Avaliacao" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="UsuarioId" />
+            </Principal>
+            <Dependent Role="Avaliacao">
+              <PropertyRef Name="UsuarioId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -310,6 +370,7 @@
         </Association>
         <EntityContainer Name="Blath3ModelStoreContainer">
           <EntitySet Name="Anuncio" EntityType="Self.Anuncio" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Avaliacao" EntityType="Self.Avaliacao" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Categoria" EntityType="Self.Categoria" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CatSub" EntityType="Self.CatSub" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Empresa" EntityType="Self.Empresa" Schema="dbo" store:Type="Tables" />
@@ -322,6 +383,18 @@
           <AssociationSet Name="FK_Anuncio_Empresa" Association="Self.FK_Anuncio_Empresa">
             <End Role="Empresa" EntitySet="Empresa" />
             <End Role="Anuncio" EntitySet="Anuncio" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Avaliacao_Empresa" Association="Self.FK_Avaliacao_Empresa">
+            <End Role="Empresa" EntitySet="Empresa" />
+            <End Role="Avaliacao" EntitySet="Avaliacao" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Avaliacao_PedEmp" Association="Self.FK_Avaliacao_PedEmp">
+            <End Role="PedEmp" EntitySet="PedEmp" />
+            <End Role="Avaliacao" EntitySet="Avaliacao" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Avaliacao_Usuario" Association="Self.FK_Avaliacao_Usuario">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Avaliacao" EntitySet="Avaliacao" />
           </AssociationSet>
           <AssociationSet Name="FK_CatSub_Categoria" Association="Self.FK_CatSub_Categoria">
             <End Role="Categoria" EntitySet="Categoria" />
@@ -383,6 +456,7 @@
           <Property Name="CriadoEm" Type="DateTime" Precision="3" />
           <Property Name="AtualizadoEm" Type="DateTime" Precision="3" />
           <NavigationProperty Name="Empresa" Relationship="Self.FK_Anuncio_Empresa" FromRole="Anuncio" ToRole="Empresa" />
+          <Property Name="ImgUrl" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Categoria">
           <Key>
@@ -432,7 +506,6 @@
           <Property Name="Dominio" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="AreaAtuacaoUF" Type="String" MaxLength="2" FixedLength="false" Unicode="false" />
           <Property Name="AreaAtuacaoCidade" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <Property Name="AnuncioId" Type="Int32" />
           <Property Name="Descricao" Type="String" MaxLength="800" FixedLength="false" Unicode="false" />
           <Property Name="Ativo" Type="Boolean" />
           <Property Name="CriadoEm" Type="DateTime" Precision="3" />
@@ -444,6 +517,9 @@
           <Property Name="Logradouro" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
           <Property Name="LogrNumero" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="Complemento" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="Status" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Avaliacaos" Relationship="Blath3Model.FK_Avaliacao_Empresa" FromRole="Empresa" ToRole="Avaliacao" />
         </EntityType>
         <EntityType Name="EmpSub">
           <Key>
@@ -469,6 +545,9 @@
           <NavigationProperty Name="Empresa" Relationship="Self.FK_PedidoEmp_Empresa" FromRole="PedEmp" ToRole="Empresa" />
           <NavigationProperty Name="PedEmpChats" Relationship="Self.FK_PedEmpChat_PedEmp" FromRole="PedEmp" ToRole="PedEmpChat" />
           <NavigationProperty Name="Pedido" Relationship="Self.FK_PedidoEmp_Pedido" FromRole="PedEmp" ToRole="Pedido" />
+          <Property Name="StatusResposta" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Cotacao" Type="Decimal" Precision="18" Scale="2" />
+          <NavigationProperty Name="Avaliacaos" Relationship="Blath3Model.FK_Avaliacao_PedEmp" FromRole="PedEmp" ToRole="Avaliacao" />
         </EntityType>
         <EntityType Name="PedEmpChat">
           <Key>
@@ -480,6 +559,7 @@
           <Property Name="CriadoEm" Type="DateTime" Precision="3" />
           <Property Name="AtualizadoEm" Type="DateTime" Precision="3" />
           <NavigationProperty Name="PedEmp" Relationship="Self.FK_PedEmpChat_PedEmp" FromRole="PedEmpChat" ToRole="PedEmp" />
+          <Property Name="Chat" Type="String" MaxLength="600" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Pedido">
           <Key>
@@ -542,6 +622,7 @@
           <NavigationProperty Name="Pedidoes" Relationship="Self.FK_Pedido_Usuario" FromRole="Usuario" ToRole="Pedido" />
           <Property Name="LogrNumero" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="Complemento" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Avaliacaos" Relationship="Blath3Model.FK_Avaliacao_Usuario" FromRole="Usuario" ToRole="Avaliacao" />
         </EntityType>
         <Association Name="FK_Anuncio_Empresa">
           <End Role="Empresa" Type="Self.Empresa" Multiplicity="0..1">
@@ -748,7 +829,78 @@
             <End Role="Usuario" EntitySet="Usuarios" />
             <End Role="Pedido" EntitySet="Pedidoes" />
           </AssociationSet>
+          <EntitySet Name="Avaliacaos" EntityType="Blath3Model.Avaliacao" />
+          <AssociationSet Name="FK_Avaliacao_Empresa" Association="Blath3Model.FK_Avaliacao_Empresa">
+            <End Role="Empresa" EntitySet="Empresas" />
+            <End Role="Avaliacao" EntitySet="Avaliacaos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Avaliacao_PedEmp" Association="Blath3Model.FK_Avaliacao_PedEmp">
+            <End Role="PedEmp" EntitySet="PedEmps" />
+            <End Role="Avaliacao" EntitySet="Avaliacaos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Avaliacao_Usuario" Association="Blath3Model.FK_Avaliacao_Usuario">
+            <End Role="Usuario" EntitySet="Usuarios" />
+            <End Role="Avaliacao" EntitySet="Avaliacaos" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="Avaliacao">
+          <Key>
+            <PropertyRef Name="AvaliacaoId" />
+          </Key>
+          <Property Name="AvaliacaoId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UsuarioId" Type="Int32" Nullable="false" />
+          <Property Name="EmpresaId" Type="Int32" Nullable="false" />
+          <Property Name="Nota" Type="Decimal" Precision="1" Scale="1" />
+          <Property Name="Descricao" Type="String" MaxLength="400" FixedLength="false" Unicode="false" />
+          <Property Name="Aprovado" Type="Boolean" />
+          <Property Name="PedEmpId" Type="Int32" />
+          <Property Name="Ativo" Type="Boolean" />
+          <Property Name="CriadoEm" Type="DateTime" Precision="3" />
+          <Property Name="AtualizadoEm" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Empresa" Relationship="Blath3Model.FK_Avaliacao_Empresa" FromRole="Avaliacao" ToRole="Empresa" />
+          <NavigationProperty Name="PedEmp" Relationship="Blath3Model.FK_Avaliacao_PedEmp" FromRole="Avaliacao" ToRole="PedEmp" />
+          <NavigationProperty Name="Usuario" Relationship="Blath3Model.FK_Avaliacao_Usuario" FromRole="Avaliacao" ToRole="Usuario" />
+        </EntityType>
+        <Association Name="FK_Avaliacao_Empresa">
+          <End Type="Blath3Model.Empresa" Role="Empresa" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="Blath3Model.Avaliacao" Role="Avaliacao" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empresa">
+              <PropertyRef Name="EmpresaId" />
+            </Principal>
+            <Dependent Role="Avaliacao">
+              <PropertyRef Name="EmpresaId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Avaliacao_PedEmp">
+          <End Type="Blath3Model.PedEmp" Role="PedEmp" Multiplicity="0..1" />
+          <End Type="Blath3Model.Avaliacao" Role="Avaliacao" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PedEmp">
+              <PropertyRef Name="PedEmpId" />
+            </Principal>
+            <Dependent Role="Avaliacao">
+              <PropertyRef Name="PedEmpId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Avaliacao_Usuario">
+          <End Type="Blath3Model.Usuario" Role="Usuario" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="Blath3Model.Avaliacao" Role="Avaliacao" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="UsuarioId" />
+            </Principal>
+            <Dependent Role="Avaliacao">
+              <PropertyRef Name="UsuarioId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -758,6 +910,7 @@
           <EntitySetMapping Name="Anuncios">
             <EntityTypeMapping TypeName="Blath3Model.Anuncio">
               <MappingFragment StoreEntitySet="Anuncio">
+                <ScalarProperty Name="ImgUrl" ColumnName="ImgUrl" />
                 <ScalarProperty Name="AnuncioId" ColumnName="AnuncioId" />
                 <ScalarProperty Name="AnuncioCode" ColumnName="AnuncioCode" />
                 <ScalarProperty Name="EmpresaId" ColumnName="EmpresaId" />
@@ -800,6 +953,8 @@
           <EntitySetMapping Name="Empresas">
             <EntityTypeMapping TypeName="Blath3Model.Empresa">
               <MappingFragment StoreEntitySet="Empresa">
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="Complemento" ColumnName="Complemento" />
                 <ScalarProperty Name="LogrNumero" ColumnName="LogrNumero" />
                 <ScalarProperty Name="Logradouro" ColumnName="Logradouro" />
@@ -820,7 +975,6 @@
                 <ScalarProperty Name="Dominio" ColumnName="Dominio" />
                 <ScalarProperty Name="AreaAtuacaoUF" ColumnName="AreaAtuacaoUF" />
                 <ScalarProperty Name="AreaAtuacaoCidade" ColumnName="AreaAtuacaoCidade" />
-                <ScalarProperty Name="AnuncioId" ColumnName="AnuncioId" />
                 <ScalarProperty Name="Descricao" ColumnName="Descricao" />
                 <ScalarProperty Name="Ativo" ColumnName="Ativo" />
                 <ScalarProperty Name="CriadoEm" ColumnName="CriadoEm" />
@@ -842,6 +996,8 @@
           <EntitySetMapping Name="PedEmps">
             <EntityTypeMapping TypeName="Blath3Model.PedEmp">
               <MappingFragment StoreEntitySet="PedEmp">
+                <ScalarProperty Name="Cotacao" ColumnName="Cotacao" />
+                <ScalarProperty Name="StatusResposta" ColumnName="StatusResposta" />
                 <ScalarProperty Name="PedEmpId" ColumnName="PedEmpId" />
                 <ScalarProperty Name="PedidoId" ColumnName="PedidoId" />
                 <ScalarProperty Name="EmpresaId" ColumnName="EmpresaId" />
@@ -853,6 +1009,7 @@
           <EntitySetMapping Name="PedEmpChats">
             <EntityTypeMapping TypeName="Blath3Model.PedEmpChat">
               <MappingFragment StoreEntitySet="PedEmpChat">
+                <ScalarProperty Name="Chat" ColumnName="Chat" />
                 <ScalarProperty Name="PedEmpChatId" ColumnName="PedEmpChatId" />
                 <ScalarProperty Name="PedEmpId" ColumnName="PedEmpId" />
                 <ScalarProperty Name="Emissor" ColumnName="Emissor" />
@@ -915,6 +1072,22 @@
                 <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="CriadoEm" ColumnName="CriadoEm" />
                 <ScalarProperty Name="AtualizadoEm" ColumnName="AtualizadoEm" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Avaliacaos">
+            <EntityTypeMapping TypeName="Blath3Model.Avaliacao">
+              <MappingFragment StoreEntitySet="Avaliacao">
+                <ScalarProperty Name="AtualizadoEm" ColumnName="AtualizadoEm" />
+                <ScalarProperty Name="CriadoEm" ColumnName="CriadoEm" />
+                <ScalarProperty Name="Ativo" ColumnName="Ativo" />
+                <ScalarProperty Name="PedEmpId" ColumnName="PedEmpId" />
+                <ScalarProperty Name="Aprovado" ColumnName="Aprovado" />
+                <ScalarProperty Name="Descricao" ColumnName="Descricao" />
+                <ScalarProperty Name="Nota" ColumnName="Nota" />
+                <ScalarProperty Name="EmpresaId" ColumnName="EmpresaId" />
+                <ScalarProperty Name="UsuarioId" ColumnName="UsuarioId" />
+                <ScalarProperty Name="AvaliacaoId" ColumnName="AvaliacaoId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

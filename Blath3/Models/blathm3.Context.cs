@@ -35,5 +35,6 @@ namespace Blath3.Models
         public virtual DbSet<Pedido> Pedidoes { get; set; }
         public virtual DbSet<Subcategoria> Subcategorias { get; set; }
         public virtual DbSet<Usuario> Usuarios { get; set; }
+        public virtual DbSet<Avaliacao> Avaliacaos { get; set; }
     }
 }

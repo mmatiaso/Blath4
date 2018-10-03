@@ -18,6 +18,7 @@ namespace Blath3.Models
         public PedEmp()
         {
             this.PedEmpChats = new HashSet<PedEmpChat>();
+            this.Avaliacaos = new HashSet<Avaliacao>();
         }
     
         public int PedEmpId { get; set; }
@@ -25,10 +26,14 @@ namespace Blath3.Models
         public Nullable<int> EmpresaId { get; set; }
         public Nullable<System.DateTime> CriadoEm { get; set; }
         public Nullable<System.DateTime> AtualizadoEm { get; set; }
+        public string StatusResposta { get; set; }
+        public Nullable<decimal> Cotacao { get; set; }
     
         public virtual Empresa Empresa { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PedEmpChat> PedEmpChats { get; set; }
         public virtual Pedido Pedido { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Avaliacao> Avaliacaos { get; set; }
     }
 }

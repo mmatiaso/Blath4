@@ -19,6 +19,7 @@ namespace Blath3.Models
         public string Emissor { get; set; }
         public Nullable<System.DateTime> CriadoEm { get; set; }
         public Nullable<System.DateTime> AtualizadoEm { get; set; }
+        public string Chat { get; set; }
     
         public virtual PedEmp PedEmp { get; set; }
     }

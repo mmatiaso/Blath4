@@ -96,7 +96,7 @@
                 //console.log(selEmpsName);
                 //console.log(selEmpsId);
 
-                $("#hidEmpresaIds").val(selEmpsId);
+                $("#hCodeEmpresaIds").val(selEmpsId);
 
                 selEmpresas = "";
                 qtdsel = selEmpsName.length;
@@ -300,7 +300,7 @@
                                         &nbsp;
                                     </div>
                                     <div class="col-md-6 mb-3">
-                                        <input type="hidden" id="hidEmpresaIds" />
+                                        <input type="hidden" id="hCodeEmpresaIds" />
                                         <button class="btn btn-primary btn-lg w-100">Enviar Pedido</button>
                                     </div>
                                 </div>
@@ -390,25 +390,25 @@
                 <div class="row">
                     <div class="col-md-2 col-4 pl-2 pr-0">
                         <div class="">
-                            <div class="imgCard"><img src="/Content/img/{{imgEmpresa}}" alt="" class="imgCard rounded" /></div>
+                            <div class="imgCard"><img src="/Content/img/{{ImagemUrl}}" alt="" class="imgCard rounded" /></div>
                         </div>
                     </div>
                     <div class="col-md-10 col-8 pl-md-3 pl-2">
                         @*<div class="f-verde f7r"><span class="font-weight-bold">0,03 Km - Anil</span></div>*@
                         <div class="subtitulo">
-                            <a href="{{lnkEmpresa}}">{{nomeEmpresa}}</a>
+                            <a href="{{lnkEmpresa}}">{{NomeEmpresa}}</a>
                         </div>
                         <div class="">
-                            <span class="badge badge-success teaser">{{notaEmpresa}}</span>
-                            <span class="teaser f-verde"><strong>{{descNotaEmpresa}}</strong> ({{numOpinioesEmpresa}} opiniões)</span>
+                            <span class="badge badge-success teaser">{{Avaliacao}}</span>
+                            <span class="teaser f-verde"><strong>{{AvaliacaoLabel}}</strong> ({{QtdAvaliacoes}} opiniões)</span>
                         </div>
                         <div class="f-verde">
-                            <div class="teaser">{{Texto1Empresa}}</div>
-                            <div class="teaser desktop">{{Texto2Empresa}}</div>
+                            <div class="teaser">{{Texto1}}</div>
+                            <div class="teaser desktop">{{Texto2}}</div>
                         </div>
                         <div class="mt-0">
 
-                            <span class="badge badge-success f7r ctaorc" data-empresa="{{nomeEmpresa}}" data-empresa-id="{{idEmpresa}}">Pedir Orçamento</span>
+                            <span class="badge badge-success f7r ctaorc" data-empresa="{{NomeEmpresa}}" data-empresa-id="{{CodeEmpresa}}">Pedir Orçamento</span>
                             @*<span class="f7r f-verde font-weight-bold"><input type="checkbox" class="" value="#" />  Enviar orçamento</span>*@
                             <span class="f7r f-verde font-weight-bold desktop">| {{Categorias}}</span>
                         </div>
@@ -445,112 +445,112 @@
     var shows = {
         "shows": [
             {
-                "idEmpresa": "01",
-                "imgEmpresa": "empresa1/promo-100.jpg",
+                "CodeEmpresa": "01",
+                "ImagemUrl": "empresa1/promo-100.jpg",
                 "lnkEmpresa": "/empresa/detalhe",
-                "nomeEmpresa": "Elétrica Xpto - 1",
-                "notaEmpresa": "4,5",
-                "descNotaEmpresa": "Muito Bom",
-                "numOpinioesEmpresa": "35",
-                "Texto1Empresa": "Há mais de dez anos na área de eletricidade.",
-                "Texto2Empresa": "Agende hoje mesmo uma visita conosco.",
+                "NomeEmpresa": "Elétrica Xpto - 1",
+                "Avaliacao": "4,5",
+                "AvaliacaoLabel": "Muito Bom",
+                "QtdAvaliacoes": "35",
+                "Texto1": "Há mais de dez anos na área de eletricidade.",
+                "Texto2": "Agende hoje mesmo uma visita conosco.",
                 "Categorias": "Eletricista"
             },
 
             {
-                "idEmpresa": "02",
-                "imgEmpresa": "empresa99/promo-20.jpg",
+                "CodeEmpresa": "02",
+                "ImagemUrl": "empresa99/promo-20.jpg",
                 "lnkEmpresa": "/empresa/detalhe",
-                "nomeEmpresa": "Luzan LTDA - 2",
-                "notaEmpresa": "3,5",
-                "descNotaEmpresa": "Bom",
-                "numOpinioesEmpresa": "45",
-                "Texto1Empresa": "Há mais de dez anos na área de eletricidade.",
-                "Texto2Empresa": "Agende hoje mesmo uma visita conosco.",
+                "NomeEmpresa": "Luzan LTDA - 2",
+                "Avaliacao": "3,5",
+                "AvaliacaoLabel": "Bom",
+                "QtdAvaliacoes": "45",
+                "Texto1": "Há mais de dez anos na área de eletricidade.",
+                "Texto2": "Agende hoje mesmo uma visita conosco.",
                 "Categorias": "Eletricista, Encanador, Pedreiro, Serviços Gerais"
             },
             {
-                "idEmpresa": "02",
-                "imgEmpresa": "empresa7/promo-131.jpg",
+                "CodeEmpresa": "02",
+                "ImagemUrl": "empresa7/promo-131.jpg",
                 "lnkEmpresa": "/empresa/detalhe",
-                "nomeEmpresa": "Aulas Paticulares - Pedro Coppelli - 3",
-                "notaEmpresa": "3,5",
-                "descNotaEmpresa": "Bom",
-                "numOpinioesEmpresa": "45",
-                "Texto1Empresa": "Aulas de Fis.,Qui., Mat., Port.",
-                "Texto2Empresa": "Agende hoje mesmo uma visita conosco.",
+                "NomeEmpresa": "Aulas Paticulares - Pedro Coppelli - 3",
+                "Avaliacao": "3,5",
+                "AvaliacaoLabel": "Bom",
+                "QtdAvaliacoes": "45",
+                "Texto1": "Aulas de Fis.,Qui., Mat., Port.",
+                "Texto2": "Agende hoje mesmo uma visita conosco.",
                 "Categorias": "Professor Particular"
             },
             {
-                "idEmpresa": "02",
-                "imgEmpresa": "empresa7/promo-131.jpg",
+                "CodeEmpresa": "02",
+                "ImagemUrl": "empresa7/promo-131.jpg",
                 "lnkEmpresa": "/empresa/detalhe",
-                "nomeEmpresa": "Aulas Paticulares - Pedro Coppelli - 4",
-                "notaEmpresa": "3,5",
-                "descNotaEmpresa": "Bom",
-                "numOpinioesEmpresa": "45",
-                "Texto1Empresa": "Aulas de Fis.,Qui., Mat., Port.",
-                "Texto2Empresa": "Agende hoje mesmo uma visita conosco.",
+                "NomeEmpresa": "Aulas Paticulares - Pedro Coppelli - 4",
+                "Avaliacao": "3,5",
+                "AvaliacaoLabel": "Bom",
+                "QtdAvaliacoes": "45",
+                "Texto1": "Aulas de Fis.,Qui., Mat., Port.",
+                "Texto2": "Agende hoje mesmo uma visita conosco.",
                 "Categorias": "Professor Particular"
             },
             {
-                "idEmpresa": "02",
-                "imgEmpresa": "empresa7/promo-131.jpg",
+                "CodeEmpresa": "02",
+                "ImagemUrl": "empresa7/promo-131.jpg",
                 "lnkEmpresa": "/empresa/detalhe",
-                "nomeEmpresa": "Aulas Paticulares - Pedro Coppelli - 5",
-                "notaEmpresa": "3,5",
-                "descNotaEmpresa": "Bom",
-                "numOpinioesEmpresa": "45",
-                "Texto1Empresa": "Aulas de Fis.,Qui., Mat., Port.",
-                "Texto2Empresa": "Agende hoje mesmo uma visita conosco.",
+                "NomeEmpresa": "Aulas Paticulares - Pedro Coppelli - 5",
+                "Avaliacao": "3,5",
+                "AvaliacaoLabel": "Bom",
+                "QtdAvaliacoes": "45",
+                "Texto1": "Aulas de Fis.,Qui., Mat., Port.",
+                "Texto2": "Agende hoje mesmo uma visita conosco.",
                 "Categorias": "Professor Particular"
             },
             {
-                "idEmpresa": "02",
-                "imgEmpresa": "empresa7/promo-131.jpg",
+                "CodeEmpresa": "02",
+                "ImagemUrl": "empresa7/promo-131.jpg",
                 "lnkEmpresa": "/empresa/detalhe",
-                "nomeEmpresa": "Aulas Paticulares - Pedro Coppelli - 6",
-                "notaEmpresa": "3,5",
-                "descNotaEmpresa": "Bom",
-                "numOpinioesEmpresa": "45",
-                "Texto1Empresa": "Aulas de Fis.,Qui., Mat., Port.",
-                "Texto2Empresa": "Agende hoje mesmo uma visita conosco.",
+                "NomeEmpresa": "Aulas Paticulares - Pedro Coppelli - 6",
+                "Avaliacao": "3,5",
+                "AvaliacaoLabel": "Bom",
+                "QtdAvaliacoes": "45",
+                "Texto1": "Aulas de Fis.,Qui., Mat., Port.",
+                "Texto2": "Agende hoje mesmo uma visita conosco.",
                 "Categorias": "Professor Particular"
             },
             {
-                "idEmpresa": "02",
-                "imgEmpresa": "empresa7/promo-131.jpg",
+                "CodeEmpresa": "02",
+                "ImagemUrl": "empresa7/promo-131.jpg",
                 "lnkEmpresa": "/empresa/detalhe",
-                "nomeEmpresa": "Aulas Paticulares - Pedro Coppelli - 7",
-                "notaEmpresa": "3,5",
-                "descNotaEmpresa": "Bom",
-                "numOpinioesEmpresa": "45",
-                "Texto1Empresa": "Aulas de Fis.,Qui., Mat., Port.",
-                "Texto2Empresa": "Agende hoje mesmo uma visita conosco.",
+                "NomeEmpresa": "Aulas Paticulares - Pedro Coppelli - 7",
+                "Avaliacao": "3,5",
+                "AvaliacaoLabel": "Bom",
+                "QtdAvaliacoes": "45",
+                "Texto1": "Aulas de Fis.,Qui., Mat., Port.",
+                "Texto2": "Agende hoje mesmo uma visita conosco.",
                 "Categorias": "Professor Particular"
             },
             {
-                "idEmpresa": "02",
-                "imgEmpresa": "empresa7/promo-131.jpg",
+                "CodeEmpresa": "02",
+                "ImagemUrl": "empresa7/promo-131.jpg",
                 "lnkEmpresa": "/empresa/detalhe",
-                "nomeEmpresa": "Aulas Paticulares - Pedro Coppelli - 8",
-                "notaEmpresa": "3,5",
-                "descNotaEmpresa": "Bom",
-                "numOpinioesEmpresa": "45",
-                "Texto1Empresa": "Aulas de Fis.,Qui., Mat., Port.",
-                "Texto2Empresa": "Agende hoje mesmo uma visita conosco.",
+                "NomeEmpresa": "Aulas Paticulares - Pedro Coppelli - 8",
+                "Avaliacao": "3,5",
+                "AvaliacaoLabel": "Bom",
+                "QtdAvaliacoes": "45",
+                "Texto1": "Aulas de Fis.,Qui., Mat., Port.",
+                "Texto2": "Agende hoje mesmo uma visita conosco.",
                 "Categorias": "Professor Particular"
             },
             {
-                "idEmpresa": "02",
-                "imgEmpresa": "empresa7/promo-131.jpg",
+                "CodeEmpresa": "02",
+                "ImagemUrl": "empresa7/promo-131.jpg",
                 "lnkEmpresa": "/empresa/detalhe",
-                "nomeEmpresa": "Aulas Paticulares - Pedro Coppelli - 9",
-                "notaEmpresa": "3,5",
-                "descNotaEmpresa": "Bom",
-                "numOpinioesEmpresa": "45",
-                "Texto1Empresa": "Aulas de Fis.,Qui., Mat., Port.",
-                "Texto2Empresa": "Agende hoje mesmo uma visita conosco.",
+                "NomeEmpresa": "Aulas Paticulares - Pedro Coppelli - 9",
+                "Avaliacao": "3,5",
+                "AvaliacaoLabel": "Bom",
+                "QtdAvaliacoes": "45",
+                "Texto1": "Aulas de Fis.,Qui., Mat., Port.",
+                "Texto2": "Agende hoje mesmo uma visita conosco.",
                 "Categorias": "Professor Particular"
             }
         ]

@@ -699,9 +699,9 @@
                 /*create a DIV element that will contain the items (values):*/
                 a = document.createElement("DIV");
                 a.setAttribute("id", this.id + "autocomplete-list");
-                a.setAttribute("class", "autocomplete-items");
+                a.setAttribute("class", "autocomplete-items text-left");
                 /*append the DIV element as a child of the autocomplete container:*/
-                this.parentNode.appendChild(a);
+                inp.parentNode.appendChild(a);
                 //gerar lista
 
                 /*for each item in the array...*/

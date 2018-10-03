@@ -29,6 +29,32 @@ namespace Blath3.Models.Core
             return lc;
         }
 
+        //ListaSubcategoriasPorEmpresa
+        public List<string> ListaSubcategoriasPorEmpresa(int empid)
+        {
+            List<string> lc = new List<string>();
+            var emps = db.EmpSubs.Where(x => x.EmpresaId == empid);
+            foreach (var es in emps)
+            {
+                lc.Add(es.Subcategoria.Nome);
+            }
+
+            return lc;
+        }
+
+        //ListaSubcategoriasPorCategoria
+        public List<Subcategoria> ListaSubcategoriasPorCategoria(int catid)
+        {
+            List<Subcategoria> lc = new List<Subcategoria>();
+            var catsb = db.CatSubs.Where(x => x.CategoriaId == catid);
+            foreach (var es in catsb)
+            {
+                lc.Add(es.Subcategoria);
+            }
+
+            return lc;
+        }
+
         //Achar Subcategoria
         public Subcategoria Retorna(int _id)
         {
