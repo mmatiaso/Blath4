@@ -3,11 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Blath3.Models;
+using Blath3.Models.Core;
+using Blath3.Models.Utils;
 
 namespace Blath3.Controllers
 {
     public class HomeController : Controller
     {
+        public CoreCategoria coreCat = new CoreCategoria();
         public ActionResult Index()
         {
             ViewBag.Title = "Home Page";
@@ -15,9 +19,12 @@ namespace Blath3.Controllers
             return View();
         }
 
-        public ActionResult Categoria()
+        [Route("{lnknome}")]
+        public ActionResult Categoria(string lnknome)
         {
-            ViewBag.Title = "Categoria";
+            Categoria cat = new Categoria();
+            cat = coreCat.Retorna(lnknome);
+            ViewBag.Title = cat.Nome;
 
             return View();
         }

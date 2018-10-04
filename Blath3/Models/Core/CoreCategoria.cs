@@ -35,6 +35,12 @@ namespace Blath3.Models.Core
             return db.Categorias.Find(_id);
         }
 
+        //Achar Categoria
+        public Categoria Retorna(string lnk)
+        {
+            return db.Categorias.Where(x => x.NomeLink == lnk).FirstOrDefault();
+        }
+
         //existe Categoria
         public bool Existe(Categoria c)
         {
