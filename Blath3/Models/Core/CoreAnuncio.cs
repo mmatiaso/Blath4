@@ -49,11 +49,15 @@ namespace Blath3.Models.Core
                 if (emp.Anuncios.Any())
                 {
                     List<string> ls = coreSub.ListaSubcategoriasPorEmpresa(emp.EmpresaId);
+                    decimal? nt = emp.Avaliacaos.Average(x => x.Nota);
                     CardEmpresa ce = new CardEmpresa
                     {
                         CodeEmpresa = emp.EmpresaCode,
                         NomeEmpresa = emp.Nome,
-                        ImagemUrl = emp.Anuncios.First().ImgUrl,
+                        ImagemUrl = emp.Anuncios.First().ImgUrl ?? "cadastro/icon-user.png",
+                        Nota = (nt == null ? "5.0":nt.ToString()),
+                        AvaliacaoLabel = "A Definir",
+                        QtdAvaliacoes = emp.Avaliacaos.Count(),
                         Dominio = emp.Dominio,
                         Texto1 = emp.Anuncios.First().Frase1,
                         Texto2 = emp.Anuncios.First().Frase2,

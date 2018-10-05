@@ -25,6 +25,7 @@ namespace Blath3.Controllers
             Categoria cat = new Categoria();
             cat = coreCat.Retorna(lnknome);
             ViewBag.Title = cat.Nome;
+            ViewData["categoryId"] = cat.CategoriaId;
 
             return View();
         }

@@ -16,6 +16,7 @@
             var selEmpsId = [];
             var qtdsel = -1;
             var selEmpresas = "<li>Não há empresas selecionadas</li>";
+            
 
             //getUrlParameter('action');
             //init Paginacao
@@ -126,7 +127,7 @@
 
             $("#listEmpSel").html(selEmpresas);
 
-
+            
 
 
         });
@@ -153,7 +154,7 @@
                 <h2 id="tituloCat">@ViewBag.Title</h2>
 
 
-                <select class="custom-select2 w-49 mw-100" id="filtroSubcategoria" required="">
+                <select class="custom-select2 w-49 mw-100 mobile" id="filtroSubcategoria" required="">
                     <option value="xpot">Selecione o que você precisa</option>
                     <option value="xpot">Arquiteto</option>
                     <option value="xpot">Eletricista</option>
@@ -399,7 +400,7 @@
                             <a href="#">{{NomeEmpresa}}</a>
                         </div>
                         <div class="">
-                            <span class="badge badge-success teaser">{{Avaliacao}}</span>
+                            <span class="badge badge-success teaser">{{Nota}}</span>
                             <span class="teaser f-verde"><strong>{{AvaliacaoLabel}}</strong> ({{QtdAvaliacoes}} opiniões)</span>
                         </div>
                         <div class="f-verde">
@@ -421,47 +422,47 @@
     </div>
 </script>
 
-<script id="mustacheTempalte_b" type="text/template">
-    <div class="item">
-        {{#shows}}
-        <ul>
-            <li><strong>Title:</strong> {{title}}</li>
-            <li><strong>Description:</strong> {{{description}}}</li>
-            <li><strong>Video:</strong> {{video}}</li>
-            <li><strong>Category:</strong> {{category}}</li>
-        </ul>
-        {{/shows}}
-    </div>
-</script>
+
 
 @*<script src='//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>*@
 @*<script src='https://cdnjs.cloudflare.com/ajax/libs/mustache.js/0.7.2/mustache.min.js'></script>*@
 <script src="~/Scripts/mustache.min.js"></script>
 <script>
-    var targetContainer = $(".target-output"),
-        templateDefined = $(".target-output").data("template-chosen"),
-        template = $("#mustacheTempalte_" + templateDefined).html();
 
-   
-
+    //cards
     var inputApi = {
-        "catId": 1,
+        "catId": @ViewData["categoryId"],
         "subcatId": 0,
         "uf": null,
         "cid": null,
         "t": 0,
         "s": 0
     }
+
     $.post("/api/anuncio/listaCards", inputApi, function (result) {
         var cardEmpresaShow = result;
         console.log(result);
-        var html = Mustache.to_html(template, cardEmpresaShow);
+
+        var targetContainer = $(".target-output"),
+            templateDefined = $(".target-output").data("template-chosen"),
+            template = $("#mustacheTempalte_" + templateDefined).html();
+
+        var html = Mustache.to_html(template, result);
 
         $(targetContainer).html(html);
+
     });
 
-    //var shows = {
-    //    "shows": [
+    
+
+   
+
+    
+    
+
+
+    //var cardEmpresaShow = {
+    //    "cardEmpresaShow": [
     //        {
     //            "CodeEmpresa": "01",
     //            "ImagemUrl": "empresa1/promo-100.jpg",
@@ -573,6 +574,8 @@
     //        }
     //    ]
     //};
+
+    
 
 
 

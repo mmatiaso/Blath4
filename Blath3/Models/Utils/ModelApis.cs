@@ -79,7 +79,7 @@ namespace Blath3.Models.Utils
         public string NomeEmpresa { get; set; }
         public string ImagemUrl { get; set; }
         public string Dominio { get; set; }
-        public string Avaliacao { get; set; }
+        public string Nota { get; set; }
         public string AvaliacaoLabel { get; set; }
         public int QtdAvaliacoes { get; set; }
         public string Texto1 { get; set; }
