@@ -16,10 +16,15 @@ $(document).ready(function () {
     if (_getCookieUF != "" && _getCookieUF != null) { //se tem cookie UF
         initUF = _getCookieUF;
         initUFid = _getCookieUFid;
+    } else {
+        writeCookie("cufid", initUFid, 360);
     }
     if (_getCookieCidade != "" && _getCookieCidade != null) { //se tem cookie Cidade
         initCid = _getCookieCidade;
+    } else {
+        writeCookie("ccidade", initCid, 360);
     }
+    
 
     //Cria o selects de UF e Cidade
     GetUFs(initUF);
@@ -33,6 +38,7 @@ $(document).ready(function () {
 
     $("#usuarioCidade").change(function () {
         SelUFCid();
+        location.reload();
     })
 
     //UF e Cid Sel

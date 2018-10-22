@@ -16,6 +16,13 @@ namespace Blath3.Models.Utils
         public List<Categoria> menushow { get; set; }
     }
 
+    public class SubMenu
+    {
+        public string Tema { get; set; }
+        public string Nome { get; set; }
+        public string NomeLink { get; set; }
+    }
+
     //busca do site
     public class BuscaApi
     {
@@ -76,6 +83,7 @@ namespace Blath3.Models.Utils
     public class CardEmpresa
     {
         public Guid CodeEmpresa { get; set; }
+        public int EmpresaId { get; set; }
         public string NomeEmpresa { get; set; }
         public string ImagemUrl { get; set; }
         public string Dominio { get; set; }
@@ -87,18 +95,27 @@ namespace Blath3.Models.Utils
         public string Uf { get; set; }
         public string Cidade { get; set; }
         public string EmpSubcategorias { get; set; }
+        public string DescricaoEmpresa { get; set; }
+        public string UFAtendimento { get; set; }
+        public string CidadeAtendimento { get; set; }
 
-        
+
 
     } 
 
-    public class Report_CardEmpresa
+    public class Report_ListaCardEmpresa
     {
         public List<CardEmpresa> cardEmpresaShow { get; set; }
         public int numRegistros { get; set; }
     }
 
-    
+    public class Report_CardEmpresa
+    {
+        public CardEmpresa shows { get; set; }
+        //public int numRegistros { get; set; }
+    }
+
+
 
     public class ListaCardReq
     {

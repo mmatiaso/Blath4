@@ -9,6 +9,7 @@ namespace Blath3.Models.Utils
 {
     public class Generico
     {
+        private Blath3Entities db = new Blath3Entities();
         public void LogExcecao(Retorno r)
         {
             //implementar

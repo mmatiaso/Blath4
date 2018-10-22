@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data.Entity;
 using System.Linq;
 using System.Web;
@@ -45,12 +46,44 @@ namespace Blath3.Models.Core
         //ListaSubcategoriasPorCategoria
         public List<Subcategoria> ListaSubcategoriasPorCategoria(int catid)
         {
-            List<Subcategoria> lc = new List<Subcategoria>();
+            
+            List <Subcategoria> lc = new List<Subcategoria>();
             var catsb = db.CatSubs.Where(x => x.CategoriaId == catid);
             foreach (var es in catsb)
             {
                 lc.Add(es.Subcategoria);
             }
+            //db.Configuration.LazyLoadingEnabled = false;
+            
+            return lc;
+        }
+
+        //ListaSubcategoriasPorCategoria
+        public List<SubMenu> ListaSubMenu(int catid)
+        {
+
+            List<SubMenu> lc = new List<SubMenu>();
+            var catsb = db.CatSubs.Where(x => x.CategoriaId == catid);
+            foreach (var es in catsb)
+            {
+                SubMenu s = new SubMenu();
+                s.Nome = es.Subcategoria.Nome;
+                s.Tema = es.Tema;
+                s.NomeLink = es.Subcategoria.NomeLink;
+
+                lc.Add(s);
+            }
+            //db.Configuration.LazyLoadingEnabled = false;
+
+            return lc;
+        }
+
+        //ListaCatSubsPorCategoria
+        public List<CatSub> ListaCatSubsPorCategoria(int catid)
+        {
+            List<CatSub> lc = new List<CatSub>();
+            lc = db.CatSubs.Where(x => x.CategoriaId == catid).ToList();
+            
 
             return lc;
         }
@@ -59,6 +92,12 @@ namespace Blath3.Models.Core
         public Subcategoria Retorna(int _id)
         {
             return db.Subcategorias.Find(_id);
+        }
+
+        //Achar Subcategoria
+        public Subcategoria Retorna(string lnk)
+        {
+            return db.Subcategorias.Where(x => x.NomeLink == lnk).FirstOrDefault();
         }
 
         //existe Subcategoria

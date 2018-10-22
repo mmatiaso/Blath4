@@ -47,13 +47,9 @@ namespace Blath3.Controllers.WebAPI
 
         [HttpPost]
         [Route("api/Anuncio/listaCards")]
-        public Report_CardEmpresa ListaCards(ListaCardReq l)
+        public Report_ListaCardEmpresa ListaCards(ListaCardReq l)
         {
-            
-            Report_CardEmpresa rc = new Report_CardEmpresa();
-            rc.cardEmpresaShow = cc.ListaCard(l);
-            rc.numRegistros = rc.cardEmpresaShow.Count();
-            return rc;
+            return cc.ListaCard(l);
         }
 
         [HttpPost]

@@ -75,6 +75,7 @@ namespace Blath3.Models.Core
         //Achar Empresa
         public Empresa Retorna(int _id)
         {
+            db.Configuration.LazyLoadingEnabled = false;
             return db.Empresas.Find(_id);
         }
 
@@ -84,6 +85,12 @@ namespace Blath3.Models.Core
             return db.Empresas.Where(x => x.EmpresaCode == _id).FirstOrDefault();
         }
 
+        //Achar Empresa
+        public Empresa Retorna(string _id)
+        {
+            return db.Empresas.Where(x => x.Dominio == _id).FirstOrDefault();
+        }
+
         //existe Empresa
         public bool Existe(Empresa c)
         {
@@ -91,15 +98,15 @@ namespace Blath3.Models.Core
             {
                 return true;
             }
-            if (db.Empresas.Where(x => x.Email == c.Email).Any())
+            if (db.Empresas.Where(x => x.Email == c.Email).Any() && !string.IsNullOrEmpty(c.Email))
             {
                 return true;
             }
-            if (db.Empresas.Where(x => x.CNPJ == c.CNPJ).Any())
+            if (db.Empresas.Where(x => x.CNPJ == c.CNPJ).Any() && !string.IsNullOrEmpty(c.CNPJ))
             {
                 return true;
             }
-            if (db.Empresas.Where(x => x.Dominio == c.Dominio).Any())
+            if (db.Empresas.Where(x => x.Dominio == c.Dominio).Any() && !string.IsNullOrEmpty(c.Dominio))
             {
                 return true;
             }
@@ -108,9 +115,40 @@ namespace Blath3.Models.Core
 
         }
 
+        //ChecarObrigatoriedade Empresa
+        public string ChecarObrigatoriedade(Empresa c)
+        {
+            if (string.IsNullOrEmpty(c.Nome))
+            {
+                return "O campo Nome é obrigatório";
+            }
+            if (string.IsNullOrEmpty(c.Email))
+            {
+                return "O campo Email é obrigatório";
+            }
+            if (string.IsNullOrEmpty(c.Dominio))
+            {
+                return "O campo Dominio é obrigatório";
+            }
+            if (string.IsNullOrEmpty(c.Status))
+            {
+                return "O campo Status é obrigatório";
+            }
+
+            return "OK";
+
+        }
+
         //new Empresa
         public Retorno Nova(Empresa c)
         {
+
+            if (ChecarObrigatoriedade(c) != "OK")
+            {
+                r.MsgExibir = ChecarObrigatoriedade(c);
+                r.Sucesso = false;
+                r.CodigoStatus = 200;
+            }
 
             if (Existe(c))
             {
@@ -153,7 +191,14 @@ namespace Blath3.Models.Core
         {
             Empresa cOriginal = new Empresa();
 
-            if(c.EmpresaId > 0)
+            if (ChecarObrigatoriedade(c) != "OK")
+            {
+                r.MsgExibir = ChecarObrigatoriedade(c);
+                r.Sucesso = false;
+                r.CodigoStatus = 200;
+            }
+
+            if (c.EmpresaId > 0)
             {
                 cOriginal = Retorna(c.EmpresaId);
             }

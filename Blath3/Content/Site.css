@@ -203,6 +203,7 @@ footer a{
     background-color: #d5d5d5;/*var(--second-bg-color);#218457;*/ 
     color: #000;
     font-weight: bold;
+    cursor:pointer;
 }
 
 .sidemenu div.sidelink {
@@ -852,4 +853,8 @@ h5.faq {
     /*when navigating through the items using the arrow keys:*/
     background-color: DodgerBlue !important;
     color: #ffffff;
+}
+
+.none{
+    display:none;
 }

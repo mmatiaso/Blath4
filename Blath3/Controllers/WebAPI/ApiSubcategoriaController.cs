@@ -37,6 +37,20 @@ namespace Blath3.Controllers.WebAPI
             return cc.Retorna(id);
         }
 
+        [HttpGet]
+        [Route("api/Subcategoria/submenu/{id}")]
+        public List<SubMenu> porCategoria(int id)
+        {
+            return cc.ListaSubMenu(id);
+        }
+
+        [HttpGet]
+        [Route("api/Catsub/catsub-por-categoria/{id}")]
+        public List<CatSub> catsubCategoria(int id)
+        {
+            return cc.ListaCatSubsPorCategoria(id);
+        }
+
         [HttpPost]
         [Route("api/Subcategoria/inserir")]
         public Retorno Inserir(Subcategoria c)

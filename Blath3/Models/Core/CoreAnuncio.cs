@@ -26,9 +26,10 @@ namespace Blath3.Models.Core
 
         //list Anuncios
         //t => take, s = skip
-        public List<CardEmpresa> ListaCard(ListaCardReq lcr)
+        public Report_ListaCardEmpresa ListaCard(ListaCardReq lcr)
         {
-
+            Report_ListaCardEmpresa RCE = new Report_ListaCardEmpresa();
+            
             //var result = from a in db.Anuncios
 
             List<CardEmpresa> Lce = new List<CardEmpresa>();
@@ -52,7 +53,7 @@ namespace Blath3.Models.Core
                     decimal? nt = emp.Avaliacaos.Average(x => x.Nota);
                     CardEmpresa ce = new CardEmpresa
                     {
-                        CodeEmpresa = emp.EmpresaCode,
+                        EmpresaId = emp.EmpresaId,
                         NomeEmpresa = emp.Nome,
                         ImagemUrl = emp.Anuncios.First().ImgUrl ?? "cadastro/icon-user.png",
                         Nota = (nt == null ? "5.0":nt.ToString()),
@@ -69,7 +70,7 @@ namespace Blath3.Models.Core
                 }
                     
             }
-                
+
             
             
 
@@ -83,6 +84,8 @@ namespace Blath3.Models.Core
                 Lce = Lce.Where(x => x.Cidade == lcr.cid).ToList();
             }
 
+            RCE.numRegistros = Lce.Count();
+
             if (lcr.s > 0)
             {
                 Lce = Lce.Skip(lcr.s).ToList();
@@ -93,7 +96,10 @@ namespace Blath3.Models.Core
                 Lce = Lce.Take(lcr.t).ToList();
             }
 
-            return Lce;
+            
+            RCE.cardEmpresaShow = Lce;
+
+            return RCE;
 
         }
 

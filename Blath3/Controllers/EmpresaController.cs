@@ -9,8 +9,10 @@ namespace Blath3.Controllers
     public class EmpresaController : Controller
     {
         // GET: Empresa
-        public ActionResult Detalhe()
+        [Route("p/e/{empresalink}")]
+        public ActionResult Detalhe(string empresalink)
         {
+            ViewData["lnkEmp"] = empresalink;
             return View();
         }
 

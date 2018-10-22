@@ -12,18 +12,18 @@
         $(document).ready(function () {
 
 
-            
+
             var qtdsel = -1;
-            
 
-            
 
-            
-            
 
-            
-            
-            
+
+
+
+
+
+
+
             //getUrlParameter('action');
             //init Paginacao
 
@@ -49,11 +49,11 @@
 
             }
 
-            
 
-            
 
-            
+
+
+
 
             $(document).on('click', '.ctaorc', function () {
 
@@ -77,7 +77,7 @@
                 //localStorage.getItem("empresasNome");
                 //localStorage.getItem("empresasIds");
                 //console.log(getCookie("empresasNome"));
-               
+
 
 
 
@@ -86,11 +86,11 @@
                     //savedNomes.push("inicio");
                     //savedNomes = getCookie("empresasNome");
                     savedIds = getCookie("empresasIds");
-                    
+
                     arObj = savedIds.split(",");
                     //console.log("From Cookie:");
                     //console.log(arObj);
-                    
+
                 }
 
                 //pos = savedIds.indexOf(empresaSelId);
@@ -102,7 +102,7 @@
 
                     arObj.splice(pos, 1);
                     //savedIds = arObj.join();
-                    
+
                     $(this).text("Pedir Orçamento");
                     helper = false;
 
@@ -110,17 +110,17 @@
                 else {
                     //console.log("Add");
                     arObj.push(empresaSelId);
-                    
+
                     //savedIds = arNomes.join();
-                    
+
                     //console.log(savedIds);
                     $(this).html("<i class='fa fa-check-square'></i> Selecionado");
-                    
+
                 }
                 //console.log("arObj:");
                 //console.log(arObj);
                 savedIds = arObj.join();
-                
+
                 writeCookie("empresasIds", savedIds, 1);
 
                 for (i = 0; i < arObj.length; i++) {
@@ -133,8 +133,8 @@
                     });
 
                 }
-                
-                
+
+
                 $("#nPedidos").text(arObj.length);
                 if (arObj.length > 0) {
                     // $("#Form1 :input").prop("enabled", true);
@@ -147,21 +147,21 @@
                     $("#Form1").hide();
                 }
 
-                
+
 
                 //arObj = [];
-                
 
-                
+
+
 
                 //session
-                
+
                 //localStorage.setItem("empresasNome", selEmpsName);
                 //localStorage.setItem("empresasIds", selEmpsId);
-                
-                
-                
-                
+
+
+
+
             });
 
 
@@ -186,7 +186,7 @@
                     categories[data[i][groupBy]].push(data[i]);
                 };
 
-                
+
 
                 for (key in categories) {
                     if (categories.hasOwnProperty(key)) {
@@ -203,7 +203,7 @@
                             for (var i = 0; i < categories[key].length; i++) {
                                 //$('<li>').html(categories[key][i].Nome + ', ' + categories[key][i].NomeLink).appendTo(ul_inner);
                                 content += "<div class='sidelink'>";
-                                content += "<a href='" + window.location.href + "/" + categories[key][i].NomeLink + "'>" + categories[key][i].Nome + "</a>";
+                                content += "<a href='/@ViewData["lnkcat"]/" + categories[key][i].NomeLink + "'>" + categories[key][i].Nome + "</a>";
                                 content += "</div>";
                             }
                             //li.append(ul_inner);
@@ -215,23 +215,23 @@
                         n++;
                     }
                 }
-                
+
                 //content.appendTo('#sbmenu');
                 $("#sbmenu").html(content);
 
             });
-            
+
             //submenu
 
 
 
 
-            
+
 
 
             //$("#listEmpSel").html(selEmpresas);
 
-            
+
 
 
         });
@@ -241,12 +241,15 @@
         .nav-link {
             padding: .25rem 1rem !important;
         }
-        .card-body{
-            padding:0;
+
+        .card-body {
+            padding: 0;
         }
+
         .card-header:first-child {
             border-radius: 0;
         }
+
         #accordionSub .card {
             border-radius: 0;
         }
@@ -332,14 +335,14 @@
                             </li>
 
                             @*<li id="pg1" class="page-item active" data-pagina="1">
-                                <span class="page-link">1</span>
-                            </li>
-                            <li id="pg2" class="page-item" data-pagina="2">
-                                <a href="?p=2"><span class="page-link">2</span></a>
-                            </li>
-                            <li id="pg3" class="page-item" data-pagina="3">
-                                <span class="page-link">3</span>
-                            </li>*@
+                                    <span class="page-link">1</span>
+                                </li>
+                                <li id="pg2" class="page-item" data-pagina="2">
+                                    <a href="?p=2"><span class="page-link">2</span></a>
+                                </li>
+                                <li id="pg3" class="page-item" data-pagina="3">
+                                    <span class="page-link">3</span>
+                                </li>*@
                             <li id="nextpage" class="page-item" data-pagina="99">
                                 <a id="page-next" class="page-link" href="#" aria-label="Next">
                                     <span aria-hidden="true">&raquo;</span>
@@ -441,67 +444,67 @@
 
                 @*<div id="accordionSub">
 
-            <div class="card">
-                <div class="card-header sidetopic" data-toggle="collapse" href="#reformas">
-                    Reformas e Consertos
-                </div>
-                <div id="reformas" class="collapse.show" data-parent="#accordionSub">
-                    <div class="card-body">
-                        <div class="sidelink">
-                            <a href="#">Eletricista</a>
+                        <div class="card">
+                            <div class="card-header sidetopic" data-toggle="collapse" href="#reformas">
+                                Reformas e Consertos
+                            </div>
+                            <div id="reformas" class="collapse.show" data-parent="#accordionSub">
+                                <div class="card-body">
+                                    <div class="sidelink">
+                                        <a href="#">Eletricista</a>
+                                    </div>
+                                    <div class="sidelink">
+                                        <a href="#">Pedreiro</a>
+                                    </div>
+                                    <div class="sidelink">
+                                        <a href="#">Bombeiro</a>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="sidelink">
-                            <a href="#">Pedreiro</a>
+
+                        <div class="card">
+                            <div class="card-header sidetopic" data-toggle="collapse" href="#comer">
+                                Serviços domésticos
+                            </div>
+                            <div id="comer" class="collapse.show" data-parent="#accordionSub">
+                                <div class="card-body">
+                                    <div class="sidelink">
+                                        <a href="#">Empregada</a>
+                                    </div>
+                                    <div class="sidelink">
+                                        <a href="#">Passadeira</a>
+                                    </div>
+                                    <div class="sidelink">
+                                        <a href="#">Faxineira</a>
+                                    </div>
+
+
+                                </div>
+                            </div>
                         </div>
-                        <div class="sidelink">
-                            <a href="#">Bombeiro</a>
-                        </div>
-                    </div>
-                </div>
+
+                    </div>*@
+
+
             </div>
 
-            <div class="card">
-                <div class="card-header sidetopic" data-toggle="collapse" href="#comer">
-                    Serviços domésticos
-                </div>
-                <div id="comer" class="collapse.show" data-parent="#accordionSub">
-                    <div class="card-body">
-                        <div class="sidelink">
-                            <a href="#">Empregada</a>
-                        </div>
-                        <div class="sidelink">
-                            <a href="#">Passadeira</a>
-                        </div>
-                        <div class="sidelink">
-                            <a href="#">Faxineira</a>
-                        </div>
 
-
-                    </div>
-                </div>
-            </div>
-
-        </div>*@
-
-
-            </div>
-
-            
 
 
             @*<div class="sidemenu reg p-0">
-            <div class="sidemain p-2">
-                O que você precisa?
-            </div>
-            <div class="sidetopic">Reformas</div>
-            <div class="sidelink"><a href="">Eletricista</a></div>
-            <div class="sidelink"><a href="">Bombeiro</a></div>
-            <div class="sidelink"><a href="">Eletricista</a></div>
-            <div class="sidetopic">Consertos</div>
-            <div class="sidelink"><a href="">Televisão</a></div>
-            <div class="sidelink"><a href="">Ar Condicionado</a></div>
-            <div class="sidelink"><a href="">Eletronica</a></div>
-        </div>*@
+                    <div class="sidemain p-2">
+                        O que você precisa?
+                    </div>
+                    <div class="sidetopic">Reformas</div>
+                    <div class="sidelink"><a href="">Eletricista</a></div>
+                    <div class="sidelink"><a href="">Bombeiro</a></div>
+                    <div class="sidelink"><a href="">Eletricista</a></div>
+                    <div class="sidetopic">Consertos</div>
+                    <div class="sidelink"><a href="">Televisão</a></div>
+                    <div class="sidelink"><a href="">Ar Condicionado</a></div>
+                    <div class="sidelink"><a href="">Eletronica</a></div>
+                </div>*@
 
 
 
@@ -529,7 +532,7 @@
                     <div class="col-md-10 col-8 pl-md-3 pl-2">
                         @*<div class="f-verde f7r"><span class="font-weight-bold">0,03 Km - Anil</span></div>*@
                         <div class="subtitulo">
-                            <a href="/p/e/{{Dominio}}">{{NomeEmpresa}}</a>
+                            <a href="#">{{NomeEmpresa}}</a>
                         </div>
                         <div class="">
                             <span class="badge badge-success teaser">{{Nota}}</span>
@@ -586,8 +589,8 @@
     //console.log("skip:" + skipx);
     //cards
     var inputApi = {
-        "catId": @ViewData["categoryId"],
-        "subcatId": 0,
+        "catId": 0,
+        "subcatId": @ViewData["subcategoryId"],
         "uf": NumUF(getCookie("cufid")),
         "cid": getCookie("ccidade"),
         "t": takx,
@@ -625,10 +628,10 @@
                     hlp += "<li class='page-item active'><a href='?p=" + pagnx + "'><span class='page-link'>" + pagnx + "</span></a ></li>";
                 } else {
                     hlp += "<li class='page-item'><a href='?p=" + i + "'><span class='page-link'>" + i + "</span></a ></li>";
-                }         
+                }
             }
             $(hlp).insertBefore("#nextpage");
-            
+
         }
 
         //if (numReg > regpag) { $("#pagnav").show(); $("#pg2").show(); }
@@ -653,7 +656,7 @@
                 writeCookie("secaoatual", "@ViewData["lnknome"]", 1);
                 writeCookie("empresasIds", "", 1);
         }
-        
+
         for (i = 0; i < arObj2.length; i++) {
             if (arObj2[i] != "") {
                 vurl = "api/Empresa/retornarId/" + arObj2[i].substring(1);
@@ -664,17 +667,17 @@
                     $("#listEmpSel").html(selEmpresas);
                 });
             }
-            
-            
+
+
 
         }
-        
+
         //console.log("From Cookie obj2:");
         //console.log(arObj2);
         $('.ctaorc').each(function () {
             //console.log($(this).html());
             var botids = "A" + $(this).data("empresa-id");
-            
+
             if (getCookie("empresasIds") != "") {
 
                 var pos2 = -1;
@@ -686,7 +689,7 @@
 
                 $("#nPedidos").text(arObj2.length);
 
-                
+
 
                 if (arObj2.length > 0) {
                     // $("#Form1 :input").prop("enabled", true);
@@ -699,26 +702,26 @@
                     $("#Form1").hide();
                 }
 
-                
 
-                
+
+
 
             }
         });
 
-        
-        
+
+
 
     });
 
-    
 
-    
 
-   
 
-    
-    
+
+
+
+
+
 
 
     //var cardEmpresaShow = {
@@ -835,11 +838,13 @@
     //    ]
     //};
 
-    
 
 
 
 
-    
+
+
 //# sourceURL=pen.js
 </script>
+
+
